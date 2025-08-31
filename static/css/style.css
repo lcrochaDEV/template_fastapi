@@ -1,0 +1,112 @@
+/*RESET*/
+*{margin:0; padding:0;}
+
+body {background-color:#8a2be2; overflow-x:hidden; margin:10px; /*padding:0px;*/
+}
+
+box {width:1024px;}
+
+/*SECTION*/
+section {
+    left: 30px;
+    top:0px;
+    background-color: rgba(16, 2, 19, 0.5);  
+    opacity: 0,5;
+    width: 100%;
+    height: 100%;
+}
+.btnpopup {
+    cursor: pointer;
+    color: white;
+    background-color: #0086e4;
+    border: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+    height: 25px;
+    letter-spacing: 1px;
+    transition-duration: 1s;
+    padding: 0 5px;
+    display: flex;
+    margin: 1px 1px 1px 10px;
+}
+.txtarea {
+    margin: 10px;
+    border-radius: 1%;
+}
+
+.text {
+    left: 30px;
+    top:0px;
+    background-color: rgba(16, 2, 19, 0.5);  
+    opacity: 0,5;
+}
+.alertas {
+    margin-left: 10px;
+}
+
+.btns {
+    display: flex;
+    justify-items: first baseline;
+}
+.copyall {
+    padding-left: 2px;
+    padding-top: 2px;
+    color: #fff;
+}
+/*Loading progress CSS*/
+.loading {
+    display: none;
+    margin-left: 10px;
+}
+.sr-only {
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+}
+
+/*ARTICLE*/
+article {
+    left: 30px;
+    top:0px;
+    background-color: rgba(16, 2, 19, 0.5);  
+    opacity: 0,5;
+}
+.conteiner {
+    display: flex;
+    justify-content: row;
+    margin: 10px;
+    margin: 1px;
+    padding: 6px;
+}
+.status {
+    background: linear-gradient(to right, #00ff00, #095c09); /* Gradiente linear de vermelho para amarelo */
+    perspective: 500px; /* Define a perspectiva para o efeito 3D */
+    transform-style: preserve-3d; /* Mantém a tridimensionalidade dos elementos filhos */
+    text-align: center;
+    color: antiquewhite;
+    border: 1px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: green;
+    padding: 1ic;
+}
+
+.caixa, .taxa_error, .potencia {
+    border: 1px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: green;    
+    background-color: aliceblue;
+    padding: 1ic;
+    align-items: center;
+}
+
+.caixa p , .taxa_error p, .potencia p {
+    text-align: center;
+    margin: 10px;
+}

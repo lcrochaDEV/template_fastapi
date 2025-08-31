@@ -1,0 +1,21 @@
+# Definição global das redes
+networks:
+  intranet:
+    external: true # Indica que esta rede já existe e não deve ser criada.
+
+services:
+  fastapi-app_smartplan:
+    image: fastapi_celery_template_fastapi_example_web
+    container_name: template_fastapi
+    hostname: template_fastapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - 8001:8000
+    restart: always
+    networks:
+      intranet:
+        ipv4_address: 172.1.0.5
