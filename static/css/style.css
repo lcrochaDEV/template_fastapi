@@ -1,7 +1,10 @@
 /*RESET*/
 *{margin:0; padding:0;}
 
-body {background-color:#8a2be2; overflow-x:hidden; margin:10px; /*padding:0px;*/
+body {background-color:#141414; overflow-x:hidden; margin:10px; /*padding:0px;*/
+  font-family: "Cossette Titre", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 box {width:1024px;}
@@ -10,7 +13,7 @@ box {width:1024px;}
 section {
     left: 30px;
     top:0px;
-    background-color: rgba(16, 2, 19, 0.5);  
+    background-color: #151b23;  
     opacity: 0,5;
     width: 100%;
     height: 100%;
@@ -34,12 +37,19 @@ section {
     margin: 10px;
     border-radius: 1%;
 }
-
+.alertaral {
+    color: #fff;
+}
 .text {
     left: 30px;
     top:0px;
     background-color: rgba(16, 2, 19, 0.5);  
     opacity: 0,5;
+}
+.msg {
+    display: block; /* Faz o label ocupar toda a largura e ir para uma nova linha */
+    color: #fff;
+    margin: 2px 10px;
 }
 .alertas {
     margin-left: 10px;
@@ -71,6 +81,8 @@ section {
 
 /*ARTICLE*/
 article {
+    display: flex;
+    justify-content: space-between;
     left: 30px;
     top:0px;
     background-color: rgba(16, 2, 19, 0.5);  
@@ -102,11 +114,35 @@ article {
     border-style: solid;
     border-color: green;    
     background-color: aliceblue;
-    padding: 1ic;
-    align-items: center;
+    display: flex;
+    flex-direction: column; /* Itens empilhados verticalmente */
+    justify-content: space-between;
+    align-items: center;    /* Centraliza os itens horizontalmente */
 }
 
-.caixa p , .taxa_error p, .potencia p {
+.caixa p, .taxa_error p, .potencia p {
     text-align: center;
     margin: 10px;
+}
+.caixa img {
+    width: 50px;
+    position: inherit;
+    left: 10px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    border: 0;
+}
+.btnsteste {
+    width: 100px;
+    cursor: pointer;
+    color: white;
+    background-color: #0086e4;
+    border: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    height: 25px;
+    letter-spacing: 1px;
+    transition-duration: 1s;
+    display: flex;
 }
