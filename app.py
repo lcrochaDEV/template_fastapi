@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Form, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse 
 from pydantic import BaseModel
@@ -14,15 +14,14 @@ origins = [
     "http://localhost:8000",
     "*"
 ]
+# Configuração do CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],  # Permite requisições de qualquer origem
     allow_credentials=True,
-    allow_methods=["POST", "GET"],
-    allow_headers=["*"],
-    max_age=3600,
+    allow_methods=["*"],  # Permite todos os métodos (GET, POST, etc.)
+    allow_headers=["*"],  # Permite todos os headers
 )
-
 # Configuração para o Jinja2
 templates = Jinja2Templates(directory="templates") # O FastAPI precisa ser informado do local dos templates
 
@@ -41,40 +40,73 @@ class Itens(BaseModel):
 def read_root():
     return {"Hello": "World"}
 
-
+#ENVIA DADOS POR URL
 @app.get("/home/{textarea}", response_class=HTMLResponse)
 async def read_root(request: Request, textarea: str):
-      return templates.TemplateResponse(
-            name="index.html",
-            context={"request": request, "textarea_content": textarea}
-      )
-
-class ItensForms(BaseModel):
-   textarea: str
-   tx: str
-   elementoA: str
-   intA: str
-   elementoB: str
-   intB: str
-
-@app.get("/dash", response_class=HTMLResponse)
-async def read_form(request: Request):
-      return templates.TemplateResponse(
-            name="index.html",
-            context={"request": request}
-      )
-
-@app.post("/submit_data", response_class=HTMLResponse)
-async def submit_data(request: Request, data: ItensForms):
     return templates.TemplateResponse(
         name="index.html",
-        context={
-            "request": request, 
-            "textarea_content": data.textarea,
-            "tx": data.tx,
-            "elementoA": data.elementoA,
-            "intA": data.intA,
-            "elementoB": data.elementoB,
-            "intB": data.intB
-        }
+        context={"request": request, "textarea_content": textarea}
     )
+
+#DASHBOAR PARA VISUALIZAÇÃO
+@app.get("/dash", response_class=HTMLResponse)
+async def read_form(request: Request):
+    return templates.TemplateResponse(
+        name="index.html",
+        context={"request": request}
+    )
+
+#PARA TESTES DE REQUISIÇÕES
+@app.get("/form", response_class=HTMLResponse)
+async def read_form(request: Request):
+    return templates.TemplateResponse(name="form.html", context={"request": request})
+
+cacheList = []
+
+class ItensForms(BaseModel):
+    textarea: str
+    tx: str
+    elementoA: str
+    intA: str
+    elementoB: str
+    intB: str
+#ENVIA DADOS EM FORMATO JSON
+@app.post("/submit_data", response_class=HTMLResponse)
+async def submit_data(request: Request, data: ItensForms):
+    context={
+        "request": request, 
+        "textarea_content": data.textarea,
+        "tx": data.tx,
+        "elementoA": data.elementoA,
+        "intA": data.intA,
+        "elementoB": data.elementoB,
+        "intB": data.intB
+    }
+    # Armazena o dicionário de contexto na cacheList
+    cacheList.append(context)
+    
+    # Opcional: Para ver o conteúdo da lista, você pode imprimi-lo
+    print("Conteúdo atual da cacheList:", cacheList)
+    return templates.TemplateResponse("index.html", cacheList)
+
+#ENVIA OS DADOS PARA O PRÓXIMO FORM
+@app.post("/submit_form", response_class=HTMLResponse)
+async def submit_data(request: Request, 
+        textarea: str = Form(...), 
+        tx: str = Form(...), 
+        elementoA: str = Form(...), 
+        intA: str = Form(...), 
+        elementoB: str = Form(...), 
+        intB: str = Form(...)
+):
+    context = {
+        "request": request, 
+        "textarea": textarea,
+        "tx": tx,
+        "elementoA": elementoA,
+        "intA": intA,
+        "elementoB": elementoB,
+        "intB": intB
+    }
+    return templates.TemplateResponse("index.html", context)
+

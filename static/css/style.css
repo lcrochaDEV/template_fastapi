@@ -17,6 +17,7 @@ section {
     opacity: 0,5;
     width: 100%;
     height: 100%;
+    margin-top: 2px;
 }
 .btnpopup {
     cursor: pointer;
@@ -31,7 +32,7 @@ section {
     transition-duration: 1s;
     padding: 0 5px;
     display: flex;
-    margin: 1px 1px 1px 10px;
+    margin: 1px 8px 15px 10px;
 }
 .txtarea {
     margin: 10px;
@@ -46,6 +47,7 @@ section {
     background-color: rgba(16, 2, 19, 0.5);  
     opacity: 0,5;
 }
+
 .msg {
     display: block; /* Faz o label ocupar toda a largura e ir para uma nova linha */
     color: #fff;
@@ -70,15 +72,31 @@ section {
     margin-left: 10px;
 }
 .sr-only {
-    clip: rect(1px, 1px, 1px, 1px);
-    clip-path: inset(50%);
     height: 1px;
     width: 1px;
     margin: -1px;
     overflow: hidden;
     padding: 0;
+    color: #67da67;
+    padding-right: 10px;
 }
 
+.smartplan {
+    background-image: url("../img/smartplan2.png");
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 100%;
+    width: 30px;
+    padding: 0 5px;
+    margin: 0;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    height: 25px;
+    letter-spacing: 1px;
+    transition-duration: 1s;
+    margin: 1px 8px 1px 1px;
+}
 /*ARTICLE*/
 article {
     display: flex;
@@ -92,7 +110,6 @@ article {
     display: flex;
     justify-content: row;
     margin: 10px;
-    margin: 1px;
     padding: 6px;
 }
 .status {
@@ -105,28 +122,32 @@ article {
     border-width: 1px;
     border-style: solid;
     border-color: green;
-    padding: 1ic;
+    width: 50px;
+    padding: 35% 0;
+    border-radius: 5px;
 }
 
 .caixa, .taxa_error, .potencia {
     border: 1px;
     border-width: 1px;
     border-style: solid;
-    border-color: green;    
-    background-color: aliceblue;
+    border-color: rgb(31, 31, 31);    
+    background-color: #000000;
+    color: aliceblue;
     display: flex;
     flex-direction: column; /* Itens empilhados verticalmente */
     justify-content: space-between;
     align-items: center;    /* Centraliza os itens horizontalmente */
+    border-radius: 5px;
 }
 
 .caixa p, .taxa_error p, .potencia p {
     text-align: center;
-    margin: 10px;
+    margin: 4px 5px;
 }
 .caixa img {
-    width: 50px;
-    position: inherit;
+    width: 60px;
+    position: relative;
     left: 10px;
     margin: 0;
     padding: 0;

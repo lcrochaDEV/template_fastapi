@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário para FastAPI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        form {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 1rem;
+            background-color: #3b82f6;
+            color: #ffffff;
+            border: none;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <!--
+    <form action="/submit_data" method="post">
+        <h2 class="text-2xl font-bold mb-6 text-center">Preencha o Formulário</h2>
+        
+        <label for="textarea">Conteúdo da área de texto:</label>
+        <textarea id="textarea" name="textarea" rows="4"></textarea>
+        
+        <label for="tx">Campo de texto (tx):</label>
+        <input type="text" id="tx" name="tx">
+        
+        <label for="elementoA">Elemento A (texto):</label>
+        <input type="text" id="elementoA" name="elementoA">
+        
+        <label for="intA">Inteiro A (número):</label>
+        <input type="text" id="intA" name="intA">
+        
+        <label for="elementoB">Elemento B (texto):</label>
+        <input type="text" id="elementoB" name="elementoB">
+        
+        <label for="intB">Inteiro B (número):</label>
+        <input type="text" id="intB" name="intB">
+        
+        <button type="submit">Enviar Dados para o Servidor</button>
+    </form>
+    -->
+    <form class="form" action="" method="">
+        <h2 class="text-2xl font-bold mb-6 text-center">Preencha o Formulário</h2>
+        
+        <label for="textarea">Conteúdo da área de texto:</label>
+        <textarea id="textarea" name="textarea" rows="4"></textarea>
+        
+        <label for="tx">Campo de texto (tx):</label>
+        <input type="text" id="tx" name="tx">
+        
+        <label for="elementoA">Elemento A (texto):</label>
+        <input type="text" id="elementoA" name="elementoA">
+        
+        <label for="intA">Inteiro A (número):</label>
+        <input type="text" id="intA" name="intA">
+        
+        <label for="elementoB">Elemento B (texto):</label>
+        <input type="text" id="elementoB" name="elementoB">
+        
+        <label for="intB">Inteiro B (número):</label>
+        <input type="text" id="intB" name="intB">
+        
+        <button type="submit">Enviar Dados para o Servidor</button>
+    </form>
+<script>
+    document.getElementById('.form').addEventListener('submit', function(event) {
+        // Previne o envio padrão do formulário
+        //event.preventDefault(); 
+        
+        const form = event.target;
+        const url = 'http://localhost:8001/submit_data'; // ***ATUALIZE ESTE ENDEREÇO***
+        
+        // Coleta todos os dados do formulário
+        const formData = new FormData(form);
+        
+        // Cria um objeto JavaScript com os dados
+        const formObject = Object.fromEntries(formData.entries());
+        
+        // Loga os dados no console para você verificar
+        console.log('Dados do formulário a serem enviados:', formObject);
+
+        // Envia os dados usando fetch com método POST
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formObject)
+        })
+        .then(response => {
+            if (!response.ok) {
+                // Lança um erro se a resposta do servidor não for bem-sucedida
+                return response.json().then(err => {
+                    throw new Error(`Erro ${response.status}: ${err.detail[0].msg}`);
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Sucesso:', data);
+            alert('Dados enviados com sucesso! Verifique o console para a resposta do servidor.');
+            window.location.href = 'http://localhost:8001/submit_data';
+        })
+        .catch(error => {
+            console.error('Erro na requisição:', error);
+            alert('Ocorreu um erro ao enviar os dados. Verifique o console para mais detalhes.');
+        });
+    });
+</script>
+</body>
+</html>

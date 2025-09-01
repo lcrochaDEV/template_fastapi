@@ -26,7 +26,7 @@ if (data){
 */
 
 //Pega dados e abre RAL
-let textarea = document.querySelector('.txtarea').value = ObjResponse.textarea;
+let textarea = document.querySelector('.txtarea').value;
 let ral = document.querySelector('.btnpopup'); //Botão
 async function criarRal () {
     let desigtx = regexpAberturaderal(/\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\w{2}\*\w\s\d{4}|\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\d+\w\s\d+/gm);
@@ -80,3 +80,20 @@ ral.addEventListener('click', async (event) => {
         sr_only.style.display = 'none';   
     }
 })
+
+let smartplanForm = document.querySelector(".smartplanForm");
+smartplanForm.addEventListener('submit', async (event) => {
+        //event.preventDefault();
+        let bodyObj = {
+            textarea: "TEXTO DO CAMPO TEXTAREA",
+            tx:"RJO AM RJO AM DP*V 0001",
+            elementoA: "RJMAD01-RMD01",
+            intA: "1/1/1",
+            elementoB: "RJMAD01-RMD02",
+            intB: "1/1/2"
+        }
+        await ConnectJson.connectJsonUrlJson('http://localhost:8001/submit_form', bodyObj);
+        window.location.href = "http://127.0.0.1:8001/submit_form"; 
+    }
+    
+)

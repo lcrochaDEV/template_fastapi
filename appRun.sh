@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source env-lnx/bin/activate
+source env/bin/activate
 
 uvicorn app:app --reload

@@ -14,17 +14,18 @@
       <body>
             <section>
                   <div class="text">
-                        <form action="">
-                              <label for="msg" class="msg">Script</label>
-                              <textarea class="txtarea" value="" rows="14" cols="70">{{textarea_content}}</textarea>
+                        <form action="/submit_form" method="post" class="smartplanForm">
+                              <label for="msg" class="msg">Dados para abertura de RAL</label>
+                              <textarea class="txtarea" value="" rows="14" cols="70">{{textarea}}</textarea>
                               <div class="btns">
-                              <input type="submit" value="RAL" class="btnpopup">
-                              <a href="#" class="copyall" alt="copy"><span class="material-symbols-outlined">copy_all</span></a>
+                                    <input type="submit" value="RAL" class="btnpopup">
+                                    <input type="submit" value="" class="smartplan">
+                                    <a href="#" class="copyall" alt="copy"><span class="material-symbols-outlined" title="copy">copy_all</span></a>
                               </div>
                         </form>
                         <p class="alertaral"></p>
                         <label class="loading">
-                              <span class="sr-only">Loading progress</span>
+                              <span class="sr-only">Loading progress... </span>
                               <progress></progress>
                         </label>
                   </div>
@@ -33,7 +34,8 @@
                   <div class="conteiner">
                         <div class="caixa">
                               <img src="../static/img/router.svg">
-                              <p><span>RJAMIG00-RMD01</span></p>
+                              <p><span>{{elementoA}} - {{intA}}</span></p>
+                              <p><span>{{tx}}</span></p>
                         </div>
                         <div class="interface_state">
                               <div class="status">
@@ -54,14 +56,15 @@
                               <p>TX <span>00 dBm</span></p>
                               <p>RX <span>00 dBm</span></p>
                               <form action="">
-                                    <input type="submit" value="Teste" class="btnsteste"> 
+                                    <input type="submit" value="Potência" class="btnsteste"> 
                               </form>                              
                         </div>
                   </div>
                   <div class="conteiner">
                         <div class="caixa">
                               <img src="../static/img/router.svg">
-                              <p><span>RJAMIG00-RMD01</span></p>
+                              <p><span>{{elementoB}} - {{intB}}</span></p>
+                              <p><span>{{tx}}</span></p>
                         </div>
                         <div class="interface_state">
                               <div class="status">
@@ -82,7 +85,7 @@
                               <p>TX <span>00 dBm</span></p>
                               <p>RX <span>00 dBm</span></p>
                               <form action="">
-                                    <input type="submit" value="Teste" class="btnsteste"> 
+                                    <input type="submit" value="Potência" class="btnsteste"> 
                               </form>  
                         </div>
                   </div>
