@@ -33,6 +33,7 @@
         }
         button {
             width: 100%;
+            height: 50px;
             padding: 1rem;
             background-color: #3b82f6;
             color: #ffffff;
@@ -48,8 +49,8 @@
     </style>
 </head>
 <body>
-    <!--
-    <form action="/submit_data" method="post">
+    
+    <form action="/submit_form" method="post">
         <h2 class="text-2xl font-bold mb-6 text-center">Preencha o Formulário</h2>
         
         <label for="textarea">Conteúdo da área de texto:</label>
@@ -72,8 +73,8 @@
         
         <button type="submit">Enviar Dados para o Servidor</button>
     </form>
-    -->
-    <form class="form" action="" method="">
+    <!--
+    <form id="formulario" class="form">
         <h2 class="text-2xl font-bold mb-6 text-center">Preencha o Formulário</h2>
         
         <label for="textarea">Conteúdo da área de texto:</label>
@@ -95,51 +96,50 @@
         <input type="text" id="intB" name="intB">
         
         <button type="submit">Enviar Dados para o Servidor</button>
+        <p class="erro"></p>
     </form>
 <script>
-    document.getElementById('.form').addEventListener('submit', function(event) {
-        // Previne o envio padrão do formulário
-        //event.preventDefault(); 
-        
-        const form = event.target;
-        const url = 'http://localhost:8001/submit_data'; // ***ATUALIZE ESTE ENDEREÇO***
-        
-        // Coleta todos os dados do formulário
-        const formData = new FormData(form);
-        
-        // Cria um objeto JavaScript com os dados
-        const formObject = Object.fromEntries(formData.entries());
-        
-        // Loga os dados no console para você verificar
-        console.log('Dados do formulário a serem enviados:', formObject);
-
-        // Envia os dados usando fetch com método POST
-        fetch(url, {
-            method: 'POST',
+    document.querySelector('#formulario').addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const body = {
+            textarea: event.target.elements['textarea'].value,
+            tx: event.target.elements['tx'].value,
+            elementoA: event.target.elements['elementoA'].value,
+            intA: event.target.elements['intA'].value,
+            elementoB: event.target.elements['elementoB'].value,
+            intB: event.target.elements['intB'].value
+        }
+        let URL = '/submit_data'
+        const conexao = await fetch(URL, {
+            method: "POST",
+            body: JSON.stringify(body),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-type': 'application/json'
             },
-            body: JSON.stringify(formObject)
+            mode: "cors",
+            cache: "default",
         })
-        .then(response => {
-            if (!response.ok) {
-                // Lança um erro se a resposta do servidor não for bem-sucedida
-                return response.json().then(err => {
-                    throw new Error(`Erro ${response.status}: ${err.detail[0].msg}`);
-                });
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Sucesso:', data);
-            alert('Dados enviados com sucesso! Verifique o console para a resposta do servidor.');
-            window.location.href = 'http://localhost:8001/submit_data';
-        })
-        .catch(error => {
-            console.error('Erro na requisição:', error);
-            alert('Ocorreu um erro ao enviar os dados. Verifique o console para mais detalhes.');
-        });
-    });
-</script>
+        if(conexao.ok){
+              const htmlResposta = await conexao.text();
+
+                // Cria uma nova janela (aba) do navegador
+                const novaJanela = window.open('', '_blank');
+
+                if (novaJanela) {
+                    // Escreve o HTML da resposta diretamente na nova janela
+                    novaJanela.document.write(htmlResposta);
+                    novaJanela.document.close(); // Importante para finalizar o documento
+                } 
+        }
+        try {
+            const openConexao = await conexao.json();
+            console.log(openConexao.status === 200)
+            //return openConexao;
+        }catch (error) { // O erro é capturado aqui na variável 'error'
+            console.log('Erro na requisição: ', error); // Exibe o erro no console
+            document.querySelector('.erro').textContent = 'Erro ao Enviar: ' + error.message; // Exibe a mensagem de erro na tela
+        }
+    })
+</script>-->
 </body>
 </html>

@@ -97,6 +97,23 @@ section {
     transition-duration: 1s;
     margin: 1px 8px 1px 1px;
 }
+
+.datacasdastro {
+    border-radius: 5px;
+    background-color: #000000;
+    margin: 10px 0;
+    padding: 6px;
+    color: aliceblue;
+    border: 1px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(31, 31, 31);
+    display: flex;
+    flex-direction: column; /* Itens empilhados verticalmente */
+    justify-content: space-between;  
+    align-items: center; 
+}
+
 /*ARTICLE*/
 article {
     display: flex;
@@ -105,12 +122,13 @@ article {
     top:0px;
     background-color: rgba(16, 2, 19, 0.5);  
     opacity: 0,5;
+    margin: 0;
+    padding: 0;
 }
 .conteiner {
     display: flex;
     justify-content: row;
     margin: 10px;
-    padding: 6px;
 }
 .status {
     background: linear-gradient(to right, #00ff00, #095c09); /* Gradiente linear de vermelho para amarelo */
@@ -166,4 +184,28 @@ article {
     letter-spacing: 1px;
     transition-duration: 1s;
     display: flex;
+}
+
+.potencia_red {
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Laser_Warning_Symbol_-_USA.svg/1280px-Laser_Warning_Symbol_-_USA.svg.png");
+    background-repeat: no-repeat;
+    background-position: -1px -7px;
+    background-size: 100%;
+    width: 100px;
+    cursor: pointer;
+    border: none;
+    height: 25px;
+    letter-spacing: 1px;
+    transition-duration: 1s;
+    background-color: rgba(241, 225, 0, 0.774);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    
+    border-width: 1px;
+    color: rgb(0, 0, 0);
+    display: flex;
+    flex-direction: column; /* Itens empilhados verticalmente */
+    justify-content: space-between;
+    align-items: center;    /* Centraliza os itens horizontalmente */
 }

@@ -61,8 +61,6 @@ async def read_form(request: Request):
 async def read_form(request: Request):
     return templates.TemplateResponse(name="form.html", context={"request": request})
 
-cacheList = []
-
 class ItensForms(BaseModel):
     textarea: str
     tx: str
@@ -72,22 +70,18 @@ class ItensForms(BaseModel):
     intB: str
 #ENVIA DADOS EM FORMATO JSON
 @app.post("/submit_data", response_class=HTMLResponse)
-async def submit_data(request: Request, data: ItensForms):
-    context={
+def submit_data(request: Request, data: ItensForms):
+    print(data)
+    context = {
         "request": request, 
-        "textarea_content": data.textarea,
+        "textarea":  data.textarea,
         "tx": data.tx,
         "elementoA": data.elementoA,
         "intA": data.intA,
         "elementoB": data.elementoB,
         "intB": data.intB
     }
-    # Armazena o dicionário de contexto na cacheList
-    cacheList.append(context)
-    
-    # Opcional: Para ver o conteúdo da lista, você pode imprimi-lo
-    print("Conteúdo atual da cacheList:", cacheList)
-    return templates.TemplateResponse("index.html", cacheList)
+    return templates.TemplateResponse("index.html", context)
 
 #ENVIA OS DADOS PARA O PRÓXIMO FORM
 @app.post("/submit_form", response_class=HTMLResponse)
@@ -99,6 +93,7 @@ async def submit_data(request: Request,
         elementoB: str = Form(...), 
         intB: str = Form(...)
 ):
+    print(tx)
     context = {
         "request": request, 
         "textarea": textarea,

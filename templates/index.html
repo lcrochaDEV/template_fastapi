@@ -35,7 +35,7 @@
                         <div class="caixa">
                               <img src="../static/img/router.svg">
                               <p><span>{{elementoA}} - {{intA}}</span></p>
-                              <p><span>{{tx}}</span></p>
+                              <p><span class="desig">{{tx}}</span></p>
                         </div>
                         <div class="interface_state">
                               <div class="status">
@@ -56,15 +56,18 @@
                               <p>TX <span>00 dBm</span></p>
                               <p>RX <span>00 dBm</span></p>
                               <form action="">
-                                    <input type="submit" value="Potência" class="btnsteste"> 
+                                    <input type="submit" value="Potência" class="potencia_red"> 
                               </form>                              
                         </div>
+                  </div>
+                  <div class="datacasdastro">
+                        <p><span class="desig">{{tx}}</span></p>
                   </div>
                   <div class="conteiner">
                         <div class="caixa">
                               <img src="../static/img/router.svg">
                               <p><span>{{elementoB}} - {{intB}}</span></p>
-                              <p><span>{{tx}}</span></p>
+                              <p><span class="desig">{{tx}}</span></p>
                         </div>
                         <div class="interface_state">
                               <div class="status">
@@ -85,7 +88,7 @@
                               <p>TX <span>00 dBm</span></p>
                               <p>RX <span>00 dBm</span></p>
                               <form action="">
-                                    <input type="submit" value="Potência" class="btnsteste"> 
+                                    <input type="submit" value="Potência" class="potencia_red"> 
                               </form>  
                         </div>
                   </div>
@@ -94,6 +97,7 @@
       <!--Classes-->
       <script src="../static/js/CadastrarRal.js"></script>
       <script src="../static/js/ConnectJson.js"></script>
+      <script src="../static/js/RegExp.js"></script>
       <!--Classes-->
       <script src="../static/js/actions.js"></script>
       <script src="../static/js/raquestRal.js"></script>
