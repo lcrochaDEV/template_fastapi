@@ -31,65 +31,76 @@
                   </div>
             <section>
             <article>
-                  <div class="conteiner">
-                        <div class="caixa">
-                              <img src="../static/img/router.svg">
-                              <p><span>{{elementoA}} - {{intA}}</span></p>
+                  <div class="pontas">
+                        <div class="conteiner">
+                              <div class="caixa">
+                                    <img src="../static/img/router.svg">
+                                    <a href="ssh://{{elementoA}}"><span class="caixaA">{{elementoA}} - {{intA}}</span></a>
+                                    <p><span></span></p>
+                              </div>
+                              <div class="interface_state">
+                                    <div class="status">
+                                          <p class="interface">UP</p>
+                                    </div>
+                                    <div class="status">
+                                          <p class="protocolo">UP</p>
+                                    </div>
+                              </div>
+                              <div class="taxa_error">
+                                    <p>Input <span>00</span></p>
+                                    <p>CRC <span>00</span></p>
+                                    <form action="">
+                                          <input type="submit" value="Zerar" class="btnsteste"> 
+                                    </form>
+                              </div>
+                              <div class="potencia">
+                                    <p>TX <span>00 dBm</span></p>
+                                    <p>RX <span>00 dBm</span></p>
+                                    <form action="">
+                                          <input type="submit" value="Potência" class="potencia_red btnsteste"> 
+                                    </form>                              
+                              </div>
+                        </div>
+                        <div class="datacasdastro">
+                              <div class="conteiner_otsdata">
+                                    <p><span>OTS: ATIVO</span></p>
+                                    <p><span>DATA: 00/00/0000</span></p>
+                              </div>
                               <p><span class="desig">{{tx}}</span></p>
-                        </div>
-                        <div class="interface_state">
-                              <div class="status">
-                                    <p class="interface">UP</p>
-                              </div>
-                              <div class="status">
-                                    <p class="protocolo">UP</p>
+                              <p><span class="trecho"></span></p>
+                              <div class="conteiner_trechos">
+                                    <p><span></span></p>
+                                    <p><span></span></p>
                               </div>
                         </div>
-                        <div class="taxa_error">
-                              <p>Input <span>00</span></p>
-                              <p>CRC <span>00</span></p>
-                              <form action="">
-                                    <input type="submit" value="Zerar" class="btnsteste"> 
-                              </form>
-                        </div>
-                        <div class="potencia">
-                              <p>TX <span>00 dBm</span></p>
-                              <p>RX <span>00 dBm</span></p>
-                              <form action="">
-                                    <input type="submit" value="Potência" class="potencia_red"> 
-                              </form>                              
-                        </div>
-                  </div>
-                  <div class="datacasdastro">
-                        <p><span class="desig">{{tx}}</span></p>
-                  </div>
-                  <div class="conteiner">
-                        <div class="caixa">
-                              <img src="../static/img/router.svg">
-                              <p><span>{{elementoB}} - {{intB}}</span></p>
-                              <p><span class="desig">{{tx}}</span></p>
-                        </div>
-                        <div class="interface_state">
-                              <div class="status">
-                                    <p class="interface">UP</p>
+                        <div class="conteiner">
+                              <div class="caixa">
+                                    <img src="../static/img/router.svg">
+                                    <a href="ssh://{{elementoB}}"><span class="caixaB">{{elementoB}} - {{intB}}</span></a>
+                                    <p><span></span></p>
                               </div>
-                              <div class="status">
-                                    <p class="protocolo">UP</p>
+                              <div class="interface_state">
+                                    <div class="status">
+                                          <p class="interface">UP</p>
+                                    </div>
+                                    <div class="status">
+                                          <p class="protocolo">UP</p>
+                                    </div>
                               </div>
-                        </div>
-                        <div class="taxa_error">
-                              <p>Input <span>00</span></p>
-                              <p>CRC <span>00</span></p>
-                              <form action="">
-                                    <input type="submit" value="Zerar" class="btnsteste"> 
-                              </form>
-                        </div>
-                        <div class="potencia">
-                              <p>TX <span>00 dBm</span></p>
-                              <p>RX <span>00 dBm</span></p>
-                              <form action="">
-                                    <input type="submit" value="Potência" class="potencia_red"> 
-                              </form>  
+                              <div class="taxa_error">
+                                    <p>Input <span>00</span></p>
+                                    <p>CRC <span>00</span></p>
+                                    <form action="">
+                                          <input type="submit" value="Zerar" class="btnsteste"> 
+                                    </form>
+                              </div>
+                              <div class="potencia">
+                                    <p>TX <span>00 dBm</span></p>
+                                    <p>RX <span>00 dBm</span></p>
+                                    <form action="">
+                                          <input type="submit" value="Potência" class="potencia_red btnsteste"> 
+                                    </form>  
+                              </div>
                         </div>
                   </div>
             </article>
@@ -100,5 +111,6 @@
       <script src="../static/js/RegExp.js"></script>
       <!--Classes-->
       <script src="../static/js/actions.js"></script>
+      <script src="../static/js/interaction.js"></script>
       <script src="../static/js/raquestRal.js"></script>
 </html>
