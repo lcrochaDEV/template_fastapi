@@ -14,7 +14,7 @@ let smartplan = async () => {
     let patternDesig = /\w{5}\d{2}\-\w{3}\d{2}/gm;
     let desigCaixa = textarea.match(patternDesig);
     let desigCaixaList = [... desigCaixa]
-    const removeDupicados = [...new Set(desigCaixaList.map(itens => itens.substring(0, 7)))];
+    const removeDupicados = [...new Set(desigCaixaList.map(itens => itens.substring(0, 7)))]; //RETIRA OS DUPLICADOS
 
     let bodyObj = {
         arrayList: removeDupicados
@@ -34,7 +34,6 @@ let smartplan = async () => {
 }
 
 //Pega dados e abre RAL
-//EXEMPLOS: RegExp.regexpsearch(texto = texto, /PROBLEMA:\s?(?<falha>\w+\s\w+)/gm, "falha")
 let desigtx = RegExp.regexpsearch(texto = textarea, /(?<tx>\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\w{2}\*\w\s\d{4}|\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\d+\w\s\d+)/gm, "tx")
 let ipran = RegExp.regexpsearch(texto = textarea, /(?<ipran>IP\sRAN\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipran")
 let ipnodeb = RegExp.regexpsearch(texto = textarea, /(?<ipnodeb>IP\sNODEB\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipnodeb")
@@ -51,9 +50,9 @@ async function criarRal () {
         site: 'SIR',
         url: 'http://sir.nt.embratel.com.br/',
         xpathTags: '//title',
-        tx: desigtx && undefined,
-        ipran: ipran && undefined,
-        nodeb: ipnodeb && undefined,
+        tx: desigtx && "",
+        ipran: ipran && "",
+        nodeb: ipnodeb && "",
         textarea: ObjResponse.textarea,
         datahora: datahora,
         elementoA: ObjResponse.elementoA,
