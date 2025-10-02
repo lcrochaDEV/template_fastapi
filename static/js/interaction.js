@@ -1,4 +1,4 @@
-let txtarea = document.querySelector('.txtarea').textContent;
+let txtarea = document.querySelector('.txtarea').value;
 let trechos = document.querySelector('.trecho');
 
 

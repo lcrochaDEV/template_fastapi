@@ -2,26 +2,26 @@ document.addEventListener('DOMContentLoaded', function() {
     smartplan();
 });
 
-
-let textarea = document.querySelector('.txtarea').value;
-
 document.querySelector('.smartplan').addEventListener('click', (event) => {
     event.preventDefault();
     smartplan();
 })
+
+let textarea = document.querySelector('.txtarea').value || null
+
 //Busca de endereços no SMARTPLAN
+let sr_only = document.querySelector(".loading");
+sr_only.style.display = 'none'; 
+
 let smartplan = async () => {
     let patternDesig = /\w{5}\d{2}\-\w{3}\d{2}/gm;
     let desigCaixa = textarea.match(patternDesig);
     let desigCaixaList = [... desigCaixa]
-    const removeDupicados = [...new Set(desigCaixaList.map(itens => itens.substring(0, 7)))]; //RETIRA OS DUPLICADOS
+    const removeDupicados = [... new Set(desigCaixaList.map(itens => itens.substring(0, 7)))]; //RETIRA OS DUPLICADOS
 
     let bodyObj = {
         arrayList: removeDupicados
     }
-
-    let sr_only = document.querySelector(".loading");
-    sr_only.style.display = 'block';
 
     //let data =  await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8001/host', bodyObj);
     if (data){
@@ -30,13 +30,13 @@ let smartplan = async () => {
             console.log(`${element}: ${data[i]}`);
         })*/
     }
-    console.log(bodyObj.arrayList)
 }
 
 //Pega dados e abre RAL
-let desigtx = RegExp.regexpsearch(texto = textarea, /(?<tx>\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\w{2}\*\w\s\d{4}|\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\d+\w\s\d+)/gm, "tx")
-let ipran = RegExp.regexpsearch(texto = textarea, /(?<ipran>IP\sRAN\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipran")
-let ipnodeb = RegExp.regexpsearch(texto = textarea, /(?<ipnodeb>IP\sNODEB\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipnodeb")
+let desigtx = RegExp.regexpsearch(texto = textarea, /(?<tx>\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\w{2}\*\w\s\d{4}|\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\d+\w\s\d+)/gm, "tx");
+let ipran = RegExp.regexpsearch(texto = textarea, /(?<ipran>IP\sRAN\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipran");
+let ipnodeb = RegExp.regexpsearch(texto = textarea, /(?<ipnodeb>IP\sNODEB\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipnodeb");
+    
 let data = new Date();
 let datahora = `${data.toLocaleDateString()} - ${data.getHours()}:${data.getMinutes()}`;
 
@@ -63,9 +63,9 @@ async function criarRal () {
     //return await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8003/host', bodyObj);
 }
 
-let ral = document.querySelector('.btnpopup'); //Botão
+
 //Loading e Resposta com Número da RAL
-ral.addEventListener('click', async (event) => {
+document.querySelector('.btnpopup').addEventListener('click', async (event) => { //Botão
     event.preventDefault();
     let sr_only = document.querySelector(".loading");
     sr_only.style.display = 'block';

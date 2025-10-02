@@ -6,6 +6,7 @@ from pydantic import BaseModel
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles # Opcional
 
+import httpx
 
 app = FastAPI()
 
@@ -28,14 +29,16 @@ templates = Jinja2Templates(directory="templates") # O FastAPI precisa ser infor
 # Configuração para ficheiros estáticos (opcional)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+API_URL = "http://localhost:8001/cache/recuperar/lucas"
 
-class Itens(BaseModel):
-    host: str 
-    port: int 
-    user: str
-    password: str
-    commands: list
-
+class ItensForms(BaseModel):
+    textarea: str
+    tx: str
+    elementoA: str
+    intA: str
+    elementoB: str
+    intB: str
+    
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
@@ -51,27 +54,51 @@ async def read_root(request: Request, textarea: str):
 #DASHBOAR PARA VISUALIZAÇÃO
 @app.get("/dash", response_class=HTMLResponse)
 async def read_form(request: Request):
+    # 2. Consumo da API com httpx
+    # O uso do bloco 'async with' garante que a conexão seja fechada corretamente
+    async with httpx.AsyncClient() as client:
+        try:
+            # Faz a requisição GET
+            response = await client.get(API_URL)
+            # Levanta uma exceção para erros HTTP (4xx ou 5xx)
+            response.raise_for_status() 
+
+            # Converte a resposta JSON em um objeto Python (lista de dicionários)
+            dados_api = response.json()['valor']
+
+        except httpx.HTTPStatusError as e:
+            # Lidar com erros de status HTTP
+            print(f"Erro HTTP ao buscar dados: {e}")
+            dados_api = {}
+            #dados_api = [{"error": f"Não foi possível buscar dados: {e.response.status_code}"}]
+        except httpx.RequestError as e:
+            # Lidar com erros de requisição (conexão, DNS, etc.)
+            print(f"Erro de requisição: {e}")
+            dados_api = [{"error": "Erro de conexão com a API externa."}]
+            
+    # 3. Passando os dados da API para o template no 'context'
     return templates.TemplateResponse(
         name="index.html",
-        context={"request": request}
+        context={
+            "request": request, 
+            "textarea": dados_api.get('textarea', ''),
+            "tx": dados_api.get('tx', 'Dados não encontrados'),
+            "elementoA": dados_api.get('elementoA', ''),
+            "intA": dados_api.get('intA', ''),
+            "elementoB": dados_api.get('elementoB', ''),
+            "intB": dados_api.get('intB', '')
+        }
     )
+
 
 #PARA TESTES DE REQUISIÇÕES
 @app.get("/form", response_class=HTMLResponse)
 async def read_form(request: Request):
     return templates.TemplateResponse(name="form.html", context={"request": request})
 
-class ItensForms(BaseModel):
-    textarea: str
-    tx: str
-    elementoA: str
-    intA: str
-    elementoB: str
-    intB: str
 #ENVIA DADOS EM FORMATO JSON
 @app.post("/submit_data", response_class=HTMLResponse)
 def submit_data(request: Request, data: ItensForms):
-    print(data)
     context = {
         "request": request, 
         "textarea":  data.textarea,

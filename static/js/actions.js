@@ -7,3 +7,5 @@ btn.addEventListener("click", (event) => {
     document.execCommand('copy');
     document.conte
 });
+
+document.querySelector('.desig').textContent.toLocaleUpperCase();
