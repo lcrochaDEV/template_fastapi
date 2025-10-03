@@ -1,13 +1,17 @@
 document.addEventListener('DOMContentLoaded', function() {
     smartplan();
+    alert('oi')
 });
-
-document.querySelector('.smartplan').addEventListener('click', (event) => {
+document.querySelector('.smartplan').addEventListener('click', async (event) => { //Botão
     event.preventDefault();
-    smartplan();
+    alert('oi')
 })
 
 let textarea = document.querySelector('.txtarea').value || null
+//let elementoA = document.querySelectorAll('.fundoazulclaro')[3].innerText;
+//let intA = document.querySelectorAll('.fundoazulclaro')[4].innerText;
+//let elementoB = document.querySelectorAll('.fundobranco')[2].innerText;
+//let intB = document.querySelectorAll('.fundobranco')[3].innerText;
 
 //Busca de endereços no SMARTPLAN
 let sr_only = document.querySelector(".loading");
@@ -22,13 +26,13 @@ let smartplan = async () => {
     let bodyObj = {
         arrayList: removeDupicados
     }
-
-    //let data =  await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8001/host', bodyObj);
+    sr_only.style.display = 'block'; 
+    let data =  await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8001/host', bodyObj);
     if (data){
         sr_only.style.display = 'none';
-        /*return bodyObj.arrayList.forEach((element, i) => {
+        return bodyObj.arrayList.forEach((element, i) => {
             console.log(`${element}: ${data[i]}`);
-        })*/
+        })
     }
 }
 
@@ -60,7 +64,7 @@ async function criarRal () {
         elementoB: ObjResponse.elementoB,
         intB: ObjResponse.intB
     }
-    //return await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8003/host', bodyObj);
+    return await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8003/host', bodyObj);
 }
 
 

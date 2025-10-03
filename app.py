@@ -8,6 +8,13 @@ from fastapi.staticfiles import StaticFiles # Opcional
 
 import httpx
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+APICACHE_SERVERS = os.getenv("APICACHE_SERVERS")
+
 app = FastAPI()
 
 origins = [
@@ -28,8 +35,6 @@ templates = Jinja2Templates(directory="templates") # O FastAPI precisa ser infor
 
 # Configuração para ficheiros estáticos (opcional)
 app.mount("/static", StaticFiles(directory="static"), name="static")
-
-API_URL = "http://localhost:8001/cache/recuperar/lucas"
 
 class ItensForms(BaseModel):
     textarea: str
@@ -59,12 +64,15 @@ async def read_form(request: Request):
     async with httpx.AsyncClient() as client:
         try:
             # Faz a requisição GET
-            response = await client.get(API_URL)
+            response = await client.get(APICACHE_SERVERS)
             # Levanta uma exceção para erros HTTP (4xx ou 5xx)
             response.raise_for_status() 
 
             # Converte a resposta JSON em um objeto Python (lista de dicionários)
-            dados_api = response.json()['valor']
+            #dados_api = response.json()['valor']
+            api_data_wrapper = response.json()
+
+            dados_api = api_data_wrapper.get('valor', {})
 
         except httpx.HTTPStatusError as e:
             # Lidar com erros de status HTTP

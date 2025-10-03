@@ -59,3 +59,6 @@ uvicorn app:app --reload
 }
 ```
 
+```.env
+APICACHE_SERVERS=http://api-cache-server:8000/cache/recuperar/lcrocha
+```
