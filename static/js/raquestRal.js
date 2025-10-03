@@ -2,10 +2,6 @@ document.addEventListener('DOMContentLoaded', function() {
     smartplan();
     alert('oi')
 });
-document.querySelector('.smartplan').addEventListener('click', async (event) => { //Botão
-    event.preventDefault();
-    alert('oi')
-})
 
 let textarea = document.querySelector('.txtarea').value || null
 //let elementoA = document.querySelectorAll('.fundoazulclaro')[3].innerText;
@@ -14,9 +10,6 @@ let textarea = document.querySelector('.txtarea').value || null
 //let intB = document.querySelectorAll('.fundobranco')[3].innerText;
 
 //Busca de endereços no SMARTPLAN
-let sr_only = document.querySelector(".loading");
-sr_only.style.display = 'none'; 
-
 let smartplan = async () => {
     let patternDesig = /\w{5}\d{2}\-\w{3}\d{2}/gm;
     let desigCaixa = textarea.match(patternDesig);
@@ -26,10 +19,10 @@ let smartplan = async () => {
     let bodyObj = {
         arrayList: removeDupicados
     }
-    sr_only.style.display = 'block'; 
+    loadingStatus(); 
     let data =  await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8001/host', bodyObj);
     if (data){
-        sr_only.style.display = 'none';
+        loadingStatus();
         return bodyObj.arrayList.forEach((element, i) => {
             console.log(`${element}: ${data[i]}`);
         })
@@ -46,8 +39,8 @@ let datahora = `${data.toLocaleDateString()} - ${data.getHours()}:${data.getMinu
 
 let designacao = document.querySelectorAll('.desig')
     designacao.forEach(desig => {
-        desig.textContent = desigtx ?? ipran ?? ipnodeb;
-    });
+    desig.textContent = desigtx ?? ipran ?? ipnodeb;
+});
 
 async function criarRal () {
     let bodyObj = {
@@ -71,8 +64,6 @@ async function criarRal () {
 //Loading e Resposta com Número da RAL
 document.querySelector('.btnpopup').addEventListener('click', async (event) => { //Botão
     event.preventDefault();
-    let sr_only = document.querySelector(".loading");
-    sr_only.style.display = 'block';
     const ral = await criarRal();
     let textarea = document.querySelector('.txtarea');
     let alertaral = document.querySelector('.alertaral');
@@ -81,10 +72,10 @@ document.querySelector('.btnpopup').addEventListener('click', async (event) => {
     if (matchRal !== null) {
         textarea.value += `BILHETE:${matchRal[0]}`;
         alertaral.textContent = ral;
-        sr_only.style.display = 'none';
+        loadingStatus();
     }else{
         alertaral.style.color = 'red';
         alertaral.textContent = ral;    
-        sr_only.style.display = 'none';   
+        loadingStatus();   
     }
 })
