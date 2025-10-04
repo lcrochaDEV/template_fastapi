@@ -1,0 +1,217 @@
+/*RESET*/
+*{margin:0; padding:0;}
+
+body {background-color:#141414; overflow-x:hidden; margin:10px; /*padding:0px;*/
+  font-family: "Cossette Titre", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+box {width:1024px;}
+
+/*SECTION*/
+section {
+    left: 30px;
+    top:0px;
+    background-color: #151b23;  
+    opacity: 0,5;
+    width: 100%;
+    height: 100%;
+    margin-top: 2px;
+}
+.btnpopup {
+    cursor: pointer;
+    color: white;
+    background-color: #0086e4;
+    border: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+    height: 25px;
+    letter-spacing: 1px;
+    transition-duration: 1s;
+    padding: 0 5px;
+    display: flex;
+    margin: 1px 8px 15px 10px;
+}
+.txtarea {
+    margin: 10px;
+    border-radius: 1%;
+}
+.alertaral {
+    color: #fff;
+}
+.text {
+    left: 30px;
+    top:0px;
+    background-color: rgba(16, 2, 19, 0.5);  
+    opacity: 0,5;
+}
+
+.msg {
+    display: block; /* Faz o label ocupar toda a largura e ir para uma nova linha */
+    color: #fff;
+    margin: 2px 10px;
+}
+.alertas {
+    margin-left: 10px;
+}
+
+.btns {
+    display: flex;
+    justify-items: first baseline;
+}
+.copyall {
+    padding-left: 2px;
+    padding-top: 2px;
+    color: #fff;
+}
+/*Loading progress CSS*/
+.loading {
+    display: none;
+    margin-left: 10px;
+}
+.sr-only {
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    color: #67da67;
+    padding-right: 10px;
+}
+
+.smartplan {
+    background-image: url("../img/smartplan2.png");
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 100%;
+    width: 30px;
+    padding: 0 5px;
+    margin: 0;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    height: 25px;
+    letter-spacing: 1px;
+    transition-duration: 1s;
+    margin: 1px 8px 1px 1px;
+}
+
+
+/*ARTICLE*/
+article {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    left: 30px;
+    top:0px;
+    background-color: rgba(16, 2, 19, 0.5);  
+    opacity: 0,5;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    color: antiquewhite;
+}
+.pontas {
+    border-radius: 5px;
+    background-color: #000000;
+    display: flex;
+    margin: 10px;
+    padding: 0 10px;
+    border: 1px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(31, 31, 31);
+}
+.conteiner {
+    display: flex;
+    justify-content: row;
+    margin: 10px 0;
+}
+.caixa img {
+    width: 60px;
+}
+.status {
+    background: linear-gradient(to right, #00ff00, #095c09); /* Gradiente linear de vermelho para amarelo */
+    perspective: 500px; /* Define a perspectiva para o efeito 3D */
+    transform-style: preserve-3d; /* Mantém a tridimensionalidade dos elementos filhos */
+    text-align: center;
+    border: 1px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: green;
+    width: 50px;
+    padding: 35% 0;
+    border-radius: 5px;
+}
+.datacasdastro {
+    background-color: #000000;
+    margin: 10px 0;
+    padding: 6px;
+    border: 1px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(31, 31, 31);
+    border-radius: 5px;
+    text-align: center;
+    width: 300px;
+}
+.conteiner_otsdata {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0 10px 0;
+ 
+}
+.caixa, .taxa_error, .potencia {
+    border: 1px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(31, 31, 31);    
+    background-color: #000000;
+    display: flex;
+    flex-direction: column; /* Itens empilhados verticalmente */
+    justify-content: space-between;
+    align-items: center;    /* Centraliza os itens horizontalmente */
+    border-radius: 5px;
+}
+
+.caixa p, .taxa_error p, .potencia p {
+    text-align: center;
+    margin: 4px 5px;
+}
+.caixa a {
+    color: aliceblue;
+    text-decoration: none;
+    padding: 4px;
+}
+
+.btnsteste {
+    width: 100px;
+    cursor: pointer;
+    color: white;
+    background-color: #0086e4;
+    border: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    height: 25px;
+    letter-spacing: 1px;
+    transition-duration: 1s;
+    display: flex;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.potencia_red {
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Laser_Warning_Symbol_-_USA.svg/1280px-Laser_Warning_Symbol_-_USA.svg.png");
+    background-repeat: no-repeat;
+    background-position: -1px -7px;
+    background-size: 100%;
+    background-color: rgba(241, 225, 0, 0.774); 
+    border-width: 1px;
+    color: rgb(0, 0, 0);
+    display: flex;
+    flex-direction: column; /* Itens empilhados verticalmente */
+    justify-content: space-between;
+    align-items: center;    /* Centraliza os itens horizontalmente */
+}
