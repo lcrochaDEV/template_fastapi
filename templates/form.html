@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário para FastAPI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        form {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            height: 50px;
+            padding: 1rem;
+            background-color: #3b82f6;
+            color: #ffffff;
+            border: none;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    
+    <form action="/submit_form" method="post">
+        <h2 class="text-2xl font-bold mb-6 text-center">Preencha o Formulário</h2>
+        
+        <label for="textarea">Conteúdo da área de texto:</label>
+        <textarea id="textarea" name="textarea" rows="4"></textarea>
+        
+        <label for="tx">Campo de texto (tx):</label>
+        <input type="text" id="tx" name="tx">
+        
+        <label for="elementoA">Elemento A (texto):</label>
+        <input type="text" id="elementoA" name="elementoA">
+        
+        <label for="intA">Inteiro A (número):</label>
+        <input type="text" id="intA" name="intA">
+        
+        <label for="elementoB">Elemento B (texto):</label>
+        <input type="text" id="elementoB" name="elementoB">
+        
+        <label for="intB">Inteiro B (número):</label>
+        <input type="text" id="intB" name="intB">
+        
+        <button type="submit">Enviar Dados para o Servidor</button>
+    </form>
+    <!--
+    <form id="formulario" class="form">
+        <h2 class="text-2xl font-bold mb-6 text-center">Preencha o Formulário</h2>
+        
+        <label for="textarea">Conteúdo da área de texto:</label>
+        <textarea id="textarea" name="textarea" rows="4"></textarea>
+        
+        <label for="tx">Campo de texto (tx):</label>
+        <input type="text" id="tx" name="tx">
+        
+        <label for="elementoA">Elemento A (texto):</label>
+        <input type="text" id="elementoA" name="elementoA">
+        
+        <label for="intA">Inteiro A (número):</label>
+        <input type="text" id="intA" name="intA">
+        
+        <label for="elementoB">Elemento B (texto):</label>
+        <input type="text" id="elementoB" name="elementoB">
+        
+        <label for="intB">Inteiro B (número):</label>
+        <input type="text" id="intB" name="intB">
+        
+        <button type="submit">Enviar Dados para o Servidor</button>
+        <p class="erro"></p>
+    </form>
+<script>
+    document.querySelector('#formulario').addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const body = {
+            textarea: event.target.elements['textarea'].value,
+            tx: event.target.elements['tx'].value,
+            elementoA: event.target.elements['elementoA'].value,
+            intA: event.target.elements['intA'].value,
+            elementoB: event.target.elements['elementoB'].value,
+            intB: event.target.elements['intB'].value
+        }
+        let URL = '/submit_data'
+        const conexao = await fetch(URL, {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+                'Content-type': 'application/json'
+            },
+            mode: "cors",
+            cache: "default",
+        })
+        if(conexao.ok){
+              const htmlResposta = await conexao.text();
+
+                // Cria uma nova janela (aba) do navegador
+                const novaJanela = window.open('', '_blank');
+
+                if (novaJanela) {
+                    // Escreve o HTML da resposta diretamente na nova janela
+                    novaJanela.document.write(htmlResposta);
+                    novaJanela.document.close(); // Importante para finalizar o documento
+                } 
+        }
+        try {
+            const openConexao = await conexao.json();
+            console.log(openConexao.status === 200)
+            //return openConexao;
+        }catch (error) { // O erro é capturado aqui na variável 'error'
+            console.log('Erro na requisição: ', error); // Exibe o erro no console
+            document.querySelector('.erro').textContent = 'Erro ao Enviar: ' + error.message; // Exibe a mensagem de erro na tela
+        }
+    })
+</script>-->
+</body>
+</html>
