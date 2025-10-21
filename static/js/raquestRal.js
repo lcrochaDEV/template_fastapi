@@ -49,7 +49,8 @@ async function criarRal () {
 
 //Busca de endereços no SMARTPLAN
 let smartplan = async () => {
-    let patternDesig = /\w{5}?\w?\d\-\w{3}\d{2}/gm;
+    let textarea = document.querySelector('.txtarea').value 
+    let patternDesig = /\w{6}?\w?\d?\-\w{3}\d{2}|\w{5}?\w?\d\-\w{3}\d{2}/gm;
     let desigCaixa = textarea.match(patternDesig);
     let desigCaixaList = [... desigCaixa]
     const removeDupicados = [... new Set(desigCaixaList.map(itens => itens.substring(0, 7)))]; //RETIRA OS DUPLICADOS
