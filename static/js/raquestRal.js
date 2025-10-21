@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadingStatus();
     let data = await smartplan();
     if (data){
-        data.forEach(element => textarea.textContent += `${element}\n`);
+        data.forEach(element => textarea.value += `${element}\n`);
         loadingStatus();
     }
 });
