@@ -5,6 +5,7 @@ let elementoB = document.querySelector('.caixaB').textContent;
 let intB = document.querySelector('.portB').textContent;
 
 document.addEventListener('DOMContentLoaded', async () => {;
+    let textarea = document.querySelector('.txtarea');
     loadingStatus();
     let data = await smartplan();
     if (data){

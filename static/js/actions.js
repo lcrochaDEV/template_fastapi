@@ -17,7 +17,7 @@ let loadingStatus = () => {
    sr_onlys.style.display === 'block' ? sr_onlys.style.display = 'none' : sr_onlys.style.display = 'block';
 }
 
-//VERRER ENDEREÇO DO SMARTPLAN
+//VARRER ENDEREÇO DO SMARTPLAN
 document.querySelector('.smartplan').addEventListener('click', async (event) => { //Botão
     event.preventDefault();
     let textarea = document.querySelector('.txtarea');
