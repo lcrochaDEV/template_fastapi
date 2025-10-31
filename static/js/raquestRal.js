@@ -8,9 +8,13 @@ document.addEventListener('DOMContentLoaded', async () => {;
     let textarea = document.querySelector('.txtarea');
     loadingStatus();
     let data = await smartplan();
-    if (data){
+    if (typeof(data) !== "string"){
         data.forEach(element => textarea.value += `${element}\n`);
         loadingStatus();
+    }else{
+        alertaral.style.color = 'red';
+        alertaral.textContent = data;    
+        loadingStatus();      
     }
 });
 
