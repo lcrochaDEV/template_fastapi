@@ -73,6 +73,32 @@
         
         <button type="submit">Enviar Dados para o Servidor</button>
     </form>
+
+    <dialog id="auth-dialog">
+        <button class="close-dialog" onclick="this.closest('dialog').close()">✕</button>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(event, 'form-sir')">SIR</button>
+            <button class="tab-btn" onclick="switchTab(event, 'form-smart')">Smartplan</button>
+        </div>
+    
+        <div class="form-container">
+            <!-- Formulário SIR -->
+            <form id="form-sir" class="form-content active" method="dialog">
+                <label>Usuário SIR<input type="text" name="user" required></label>
+                <label>Senha<input type="password" name="pass" required></label>
+                <button type="submit" class="btn-login btn-sir">Entrar no SIR</button>
+            </form>
+    
+            <!-- Formulário Smartplan -->
+            <form id="form-smart" class="form-content" method="dialog">
+                <label>E-mail Smartplan<input type="email" name="email" required></label>
+                <label>Senha<input type="password" name="pass" required></label>
+                <button type="submit" class="btn-login btn-smart">Acessar Smartplan</button>
+            </form>
+        </div>
+    </dialog>
+    
     <!--
     <form id="formulario" class="form">
         <h2 class="text-2xl font-bold mb-6 text-center">Preencha o Formulário</h2>

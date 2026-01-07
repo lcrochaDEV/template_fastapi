@@ -104,7 +104,44 @@
                         </div>
                   </div>
             </article>
+            <button onclick="document.getElementById('auth-dialog').showModal()">Abrir Login</button>
 
+            <dialog id="auth-dialog">
+                <button class="close-dialog" onclick="this.closest('dialog').close()">✕</button>
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab(event, 'form-sir')">SIR</button>
+                    <button class="tab-btn" onclick="switchTab(event, 'form-smart')">Smartplan</button>
+                </div>
+            
+                <div class="form-container">
+                    <!-- Formulário SIR -->
+                    <form id="form-sir" class="form-content active" method="dialog">
+                        <div class="label_conteiner">
+                              <label>SIR</label>
+                              <input type="text" name="user" placeholder="Senha" required>
+                        </div>
+                        <div class="label_conteiner">
+                              <label>Senha</label>
+                              <input type="password" name="pass" placeholder="••••••••" required>
+                        </div>
+                              <button type="submit" class="btn-login btn-sir">Acessar no SIR</button>
+                        
+                    </form>
+            
+                    <!-- Formulário Smartplan -->
+                    <form id="form-smart" class="form-content" method="dialog">
+                        <div class="label_conteiner">
+                              <label>Smartplan</label>
+                              <input type="email" name="email" placeholder="Senha" required>
+                        </div>
+                        <div class="label_conteiner">
+                              <label>Senha</label>
+                              <input type="password" name="pass" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="btn-login btn-smart">Acessar Smartplan</button>
+                    </form>
+                </div>
+            </dialog>
             <!--Classes-->
             <script src="/static/js/CadastrarRal.js"></script>
             <script src="/static/js/ConnectJson.js"></script>

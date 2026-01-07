@@ -51,3 +51,20 @@ document.querySelector('.btnpopup').addEventListener('click', async (event) => {
         loadingStatus();
     }
 })
+/*DIALOG*/
+function switchTab(e, formId) {
+    // Alternar botões
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    e.currentTarget.classList.add('active');
+
+    // Alternar formulários
+    document.querySelectorAll('.form-content').forEach(form => form.classList.remove('active'));
+    document.getElementById(formId).classList.add('active');
+}
+
+// Fecha o dialog ao clicar fora dele (no backdrop)
+const dialog = document.getElementById('auth-dialog');
+dialog.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+});
+
