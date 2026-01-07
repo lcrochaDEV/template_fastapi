@@ -25,7 +25,7 @@ document.querySelector('.smartplan').addEventListener('click', async (event) => 
     loadingStatus();
     let data = await smartplan();
     if (typeof(data) !== "string"){
-        data.forEach(element => textarea.textContent += `${element}\n`);
+        data.forEach(element => textarea.value += `${element}\n`);
         loadingStatus();
     }else{
         alertaral.style.color = 'red';

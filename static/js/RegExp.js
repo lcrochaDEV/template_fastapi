@@ -1,5 +1,6 @@
 class RegExp {
     static regexpsearch(texto = null, pattern = null, groupsRegexp = null){
+        if (!texto) return null; 
         let capturatxt = [... texto.matchAll(pattern)];
         if(capturatxt.length != 0){
             if(groupsRegexp != null){
