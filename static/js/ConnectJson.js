@@ -24,8 +24,8 @@ class ConnectJson {
             if(conexao.status === 200){
                 const openConexao = await conexao.json();
                 return openConexao;
-            } else if (conexao.status === 404){
-                console.log('Erro 404!')
+            } else {
+                return conexao;
             }
         }catch(error){
             console.log('Falha no link!')
@@ -40,8 +40,8 @@ class ConnectJson {
             if(conexao.status === 200){
                 const openConexao = await conexao.text();
                 return openConexao;
-            } else if (conexao.status === 404){
-                console.log('Erro 404!')
+            } else {
+                return conexao;
             }
         }catch(error){
             console.log('Falha no link!')

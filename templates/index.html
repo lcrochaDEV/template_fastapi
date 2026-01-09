@@ -13,6 +13,7 @@
 </head>
       <body>
             <section>
+                  <a href="#" class="link" onclick="document.getElementById('auth-dialog').showModal()""><span class="material-symbols-outlined">settings</span></a>
                   <div class="text">
                         <form action="/submit_form" method="post" class="smartplanForm">
                               <label for="msg" class="msg">Dados para abertura de RAL</label>
@@ -104,7 +105,6 @@
                         </div>
                   </div>
             </article>
-            <button onclick="document.getElementById('auth-dialog').showModal()">Abrir Login</button>
 
             <dialog id="auth-dialog">
                 <button class="close-dialog" onclick="this.closest('dialog').close()">✕</button>
@@ -117,28 +117,44 @@
                     <!-- Formulário SIR -->
                     <form id="form-sir" class="form-content active" method="dialog">
                         <div class="label_conteiner">
-                              <label>SIR</label>
-                              <input type="text" name="user" placeholder="Senha" required>
+                              <label>SIR: </label>
+                              <input type="text" name="login" placeholder="login" required>
                         </div>
                         <div class="label_conteiner">
-                              <label>Senha</label>
-                              <input type="password" name="pass" placeholder="••••••••" required>
+                              <label>Senha: </label>
+                              <input type="password" name="passw" placeholder="••••••••" required>
                         </div>
-                              <button type="submit" class="btn-login btn-sir">Acessar no SIR</button>
+                        <div class="label_conteiner">
+                              <label for="session-time">Tempo: </label>
+                              <select id="session-time" class="custom-select">
+                                  <option value="28800000">8 Horas</option>
+                                  <option value="86400000" selected>24 Horas</option>
+                              </select>
+                        </div>
+                        <button type="submit" class="btn-login btn-sir">Acessar no SIR</button>
+                        <p class="alertsMsg"></p>
                         
                     </form>
             
                     <!-- Formulário Smartplan -->
                     <form id="form-smart" class="form-content" method="dialog">
                         <div class="label_conteiner">
-                              <label>Smartplan</label>
-                              <input type="email" name="email" placeholder="Senha" required>
+                              <label>Smartplan: </label>
+                              <input type="login" name="login" placeholder="login" required>
                         </div>
                         <div class="label_conteiner">
-                              <label>Senha</label>
-                              <input type="password" name="pass" placeholder="••••••••" required>
+                              <label>Senha: </label>
+                              <input type="password" name="passw" placeholder="••••••••" required>
+                        </div>
+                        <div class="label_conteiner">
+                              <label for="session-time">Tempo: </label>
+                              <select id="session-time" class="custom-select">
+                                  <option value="28800000">8 Horas</option>
+                                  <option value="86400000" selected>24 Horas</option>
+                              </select>
                         </div>
                         <button type="submit" class="btn-login btn-smart">Acessar Smartplan</button>
+                        <p class="alertsMsg"></p>
                     </form>
                 </div>
             </dialog>

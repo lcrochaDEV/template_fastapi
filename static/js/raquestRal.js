@@ -67,3 +67,25 @@ async function criarRal () {
 }
 
 
+let postMencachedSir = async(data = {chave, "valor": {login, passw}, time}) => {
+    let alertsMsg = document.querySelector('.alertsMsg');
+    try {
+        let gravar = await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8009/cache/gravar', data);
+        alertsMsg.style.display = "block";
+        console.log(gravar)
+        
+        if(gravar){
+            alertsMsg.style.color = "green";
+            alertsMsg.textContent = "Cadastrado com sucesso";
+        }else{
+            alertsMsg.style.color = "red";
+            alertsMsg.textContent = "Login ou Senha Incorretos";
+        }
+    
+    } catch (error) {
+        // Tratamento para falhas de rede ou servidor offline
+        alertsMsg.style.display = "block";
+        alertsMsg.style.color = "orange";
+        alertsMsg.textContent = "Erro de conexão com o servidor.";
+    }
+}

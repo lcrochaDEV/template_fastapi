@@ -68,3 +68,11 @@ dialog.addEventListener('click', (e) => {
     if (e.target === dialog) dialog.close();
 });
 
+let postMecacheddata = document.querySelector(".form-content").addEventListener('submit', async (event) => {
+    event.preventDefault();
+    let login = event.target.elements['login'].value;
+    let passw = event.target.elements['passw'].value;
+    let time = event.target.elements['session-time'].value;
+    
+    postMencachedSir({chave: "sirRobot", "valor": {login, passw}, "time": Number(time)});
+});
