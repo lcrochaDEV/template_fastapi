@@ -73,6 +73,7 @@ let postMecacheddata = document.querySelector(".form-content").addEventListener(
     let login = event.target.elements['login'].value;
     let passw = event.target.elements['passw'].value;
     let time = event.target.elements['session-time'].value;
-    
-    postMencachedSir({chave: "sirRobot", "valor": {login, passw}, "time": Number(time)});
+    let chave = event.target[3].dataset.sir
+ 
+    postMencached({chave, "valor": {login, passw}, "time": Number(time)});
 });

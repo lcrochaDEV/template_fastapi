@@ -67,12 +67,11 @@ async function criarRal () {
 }
 
 
-let postMencachedSir = async(data = {chave, "valor": {login, passw}, time}) => {
+let postMencached = async(data = {chave, "valor": {login, passw}, time}) => {
     let alertsMsg = document.querySelector('.alertsMsg');
     try {
         let gravar = await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8009/cache/gravar', data);
         alertsMsg.style.display = "block";
-        console.log(gravar)
         
         if(gravar){
             alertsMsg.style.color = "green";
