@@ -60,6 +60,7 @@ function switchTab(e, formId) {
     // Alternar formulários
     document.querySelectorAll('.form-content').forEach(form => form.classList.remove('active'));
     document.getElementById(formId).classList.add('active');
+    document.querySelector('.alertsMsg').textContent = "";
 }
 
 // Fecha o dialog ao clicar fora dele (no backdrop)
@@ -68,12 +69,22 @@ dialog.addEventListener('click', (e) => {
     if (e.target === dialog) dialog.close();
 });
 
-let postMecacheddata = document.querySelector(".form-content").addEventListener('submit', async (event) => {
+let postMecacheddataSir = document.querySelector("#form-sir").addEventListener('submit', async (event) => {
     event.preventDefault();
-    let login = event.target.elements['login'].value;
+    let user = event.target.elements['user'].value;
     let passw = event.target.elements['passw'].value;
     let time = event.target.elements['session-time'].value;
     let chave = event.target[3].dataset.sir
  
-    postMencached({chave, "valor": {login, passw}, "time": Number(time)});
+    postMencached({chave, "valor": {user, passw}, "time": Number(time)});
+});
+
+let postMecacheddataSmartplan = document.querySelector("#form-smart").addEventListener('submit', async (event) => {
+    event.preventDefault();
+    let user = event.target.elements['user'].value;
+    let passw = event.target.elements['passw'].value;
+    let time = event.target.elements['session-time'].value;
+    let chave = event.target[3].dataset.smartplan
+ 
+    postMencached({chave, "valor": {user, passw}, "time": Number(time)});
 });

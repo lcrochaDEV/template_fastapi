@@ -67,7 +67,7 @@ async function criarRal () {
 }
 
 
-let postMencached = async(data = {chave, "valor": {login, passw}, time}) => {
+let postMencached = async(data = {chave, "valor": {user, passw}, time}) => {
     let alertsMsg = document.querySelector('.alertsMsg');
     try {
         let gravar = await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8009/cache/gravar', data);
@@ -78,7 +78,7 @@ let postMencached = async(data = {chave, "valor": {login, passw}, time}) => {
             alertsMsg.textContent = "Cadastrado com sucesso";
         }else{
             alertsMsg.style.color = "red";
-            alertsMsg.textContent = "Login ou Senha Incorretos";
+            alertsMsg.textContent = "Usuario ou Senha Incorretos";
         }
     
     } catch (error) {
