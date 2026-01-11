@@ -13,9 +13,7 @@ let btn = document.querySelector('.copyall')
 
 //LOADING
 let sr_onlys = document.querySelector(".loading");
-let loadingStatus = () => {
-   sr_onlys.style.display === 'block' ? sr_onlys.style.display = 'none' : sr_onlys.style.display = 'block';
-}
+let loadingStatus = () => sr_onlys.style.display === 'block' ? sr_onlys.style.display = 'none' : sr_onlys.style.display = 'block';
 
 let alertaral = document.querySelector('.alertaral');
 //VARRER ENDEREÇO DO SMARTPLAN
@@ -88,3 +86,26 @@ let postMecacheddataSmartplan = document.querySelector("#form-smart").addEventLi
  
     postMencached({chave, "valor": {user, passw}, "time": Number(time)});
 });
+
+//PREENCHE DADOS QUANDO COPIADO NO TEXTAREA
+document.querySelector('.txtarea').addEventListener('input', async (event) => { 
+    let desigtx = RegExp.regexpsearch(texto = event.data, /(?<tx>\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\w{2}\*\w\s\d{4}|\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\d+\w\s\d+)/gm, "tx");
+    let ipran = RegExp.regexpsearch(texto = event.data, /(?<ipran>IP\sRAN\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipran");
+    let ipnodeb = RegExp.regexpsearch(texto = event.data, /(?<ipnodeb>IP\sNODEB\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipnodeb");
+    //Pega dados e abre RAL
+
+    if(desigtx !== null)
+        desigtxChange = desigtx;
+    if(ipran !== null)
+        ipranChange = ipran;
+    if(ipnodeb !== null)
+        ipnodebChange = ipnodeb;
+
+    let listRouter = event.data.match(/\w+\-\w+/gm);
+    elementoA.innerText = listRouter[0];
+    elementoB.innerText = listRouter[1];
+    let interfaces = event.data.match(/\b(?:[A-Z-]*\d+)?\/\d+[\/\w-]*\b/gm);
+    intA.innerText = interfaces[0];
+    intB.innerText = interfaces[1];
+    textarea = event.data;
+})
