@@ -1,4 +1,4 @@
-let textarea = document.querySelector('.txtarea').value ;
+let textarea = document.querySelector('.txtarea').value;
 let trechos = document.querySelector('.trecho');
 let desig = document.querySelector('.desig');
 let elementoA = document.querySelector('.caixaA');
@@ -16,14 +16,13 @@ let pattern = /RMD|RMC|RMA|RMP/gm;
 let trexoA = textarea.match(pattern) || [];
 let ipan = trexoA.findIndex(itens => itens === 'RMC') || trexoA.findIndex(itens => itens === 'RMD');
 
-if(tx !== -1)   {
-    trechos.innerText = `TX`;
-}
-else if (ipan === 1){
-    trechos.innerText = `IP RAN`;
-}else {
-    trechos.innerText = `IP NODEB`;
-}
+if(tx !== -1) trechos.innerText = `TX`;
+else if (ipan === 1) trechos.innerText = `IP RAN`;
+else  trechos.innerText = `IP NODEB`;
 
 let regexp2 = (exp) => `${exp.substring(0, 2)} ${exp.substring(2, 7)}`;
 
+document.addEventListener('DOMContentLoaded', () => {
+
+
+})

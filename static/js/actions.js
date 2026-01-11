@@ -100,6 +100,8 @@ document.querySelector('.txtarea').addEventListener('input', async (event) => {
         ipranChange = ipran;
     if(ipnodeb !== null)
         ipnodebChange = ipnodeb;
+    
+    desig.textContent = desigtx ?? ipran ?? ipnodeb;
 
     let listRouter = event.data.match(/\w+\-\w+/gm);
     elementoA.innerText = listRouter[0];
