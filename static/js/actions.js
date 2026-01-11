@@ -89,11 +89,20 @@ let postMecacheddataSmartplan = document.querySelector("#form-smart").addEventLi
 
 //PREENCHE DADOS QUANDO COPIADO NO TEXTAREA
 document.querySelector('.txtarea').addEventListener('input', async (event) => { 
+    //Pega dados e abre RAL
     let desigtx = RegExp.regexpsearch(texto = event.data, /(?<tx>\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\w{2}\*\w\s\d{4}|\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\d+\w\s\d+)/gm, "tx");
     let ipran = RegExp.regexpsearch(texto = event.data, /(?<ipran>IP\sRAN\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipran");
     let ipnodeb = RegExp.regexpsearch(texto = event.data, /(?<ipnodeb>IP\sNODEB\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipnodeb");
-    //Pega dados e abre RAL
 
+    let tx = event.data.search(/\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\w{2}\*\w\s\d{4}|\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\d+\w\s\d+/gm);
+    let pattern = /RMD|RMC|RMA|RMP/gm;
+    let trexoA = event.data.match(pattern) || [];
+    let ipan = trexoA.findIndex(itens => itens === 'RMC') || trexoA.findIndex(itens => itens === 'RMD');
+
+    if(tx !== -1) trechos.innerText = `TX`;
+    else if (ipan === 1) trechos.innerText = `IP RAN`;
+    else  trechos.innerText = `IP NODEB`;
+    
     if(desigtx !== null)
         desigtxChange = desigtx;
     if(ipran !== null)
