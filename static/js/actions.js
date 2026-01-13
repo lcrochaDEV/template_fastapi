@@ -28,19 +28,21 @@ document.querySelector('.smartplan').addEventListener('click', async (event) => 
     }else{
         alertaral.style.color = 'red';
         alertaral.textContent = data;    
-        loadingStatus();      
+        loadingStatus();
     }
 })
 
 //Loading e Resposta com Número da RAL
 document.querySelector('.btnpopup').addEventListener('click', async (event) => { //Botão
     event.preventDefault();
+    let textarea = document.querySelector('.txtarea');
     loadingStatus();
     let ral = await criarRal();
     let regexp = /RAL\s\d+\/\d+/gm;
     let matchRal = ral.match(regexp)
+    console.log(matchRal)
     if(matchRal.length > -1) {
-        source.value += `BILHETE:${matchRal[0]}`;
+        textarea.value += `BILHETE:${matchRal[0]}`;
         alertaral.textContent = ral;
         loadingStatus();
     }else{

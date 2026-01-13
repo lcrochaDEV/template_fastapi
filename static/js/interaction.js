@@ -1,11 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
-    desig.textContent = "";
-    elementoA.textContent = "";
-    elementoB.textContent = "";
-    intA.textContent = "";
-    intB.textContent = "";
-    document.querySelector('.txtarea').value = ""
-})
 let textarea = document.querySelector('.txtarea').value;
 let trechos = document.querySelector('.trecho');
 let desig = document.querySelector('.desig');
@@ -13,6 +5,20 @@ let elementoA = document.querySelector('.caixaA');
 let intA = document.querySelector('.portA');
 let elementoB = document.querySelector('.caixaB');
 let intB = document.querySelector('.portB');
+
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelector('.txtarea').value = ""
+    desig.textContent = "";
+    elementoA.textContent = "";
+    elementoB.textContent = "";
+    intA.textContent = "";
+    intB.textContent = "";
+    textarea = "";
+    trechos.textContent = "";
+    console.log(event)
+
+})
 
 //DADOS COLADOS NO CAMPO TEXTAREA
 let desigtxChange;
