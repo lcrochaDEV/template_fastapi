@@ -76,7 +76,7 @@ let postMecacheddataSir = document.querySelector("#form-sir").addEventListener('
     let time = event.target.elements['session-time'].value;
     let chave = event.target[3].dataset.sir
  
-    postMencached({chave, "valor": {user, passw}, "time": Number(time)});
+    postMencached({chave, "valor": {user, passw}, "expiracao": Number(time)});
 });
 
 let postMecacheddataSmartplan = document.querySelector("#form-smart").addEventListener('submit', async (event) => {
@@ -86,7 +86,7 @@ let postMecacheddataSmartplan = document.querySelector("#form-smart").addEventLi
     let time = event.target.elements['session-time'].value;
     let chave = event.target[3].dataset.smartplan
  
-    postMencached({chave, "valor": {user, passw}, "time": Number(time)});
+    postMencached({chave, "valor": {user, passw}, "expiracao": Number(time)});
 });
 
 //PREENCHE DADOS QUANDO COPIADO NO TEXTAREA
