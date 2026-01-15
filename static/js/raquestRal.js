@@ -1,8 +1,9 @@
-let textarea = document.querySelector('.txtarea').value || null
-let elementoA = document.querySelector('.caixaA').textContent;
-let intA = document.querySelector('.portA').textContent;
-let elementoB = document.querySelector('.caixaB').textContent;
-let intB = document.querySelector('.portB').textContent;
+//let textarea = document.querySelector('.txtarea').value;
+//Pega dados e abre RAL
+let desigtx = RegExp.regexpsearch(texto = textarea, /(?<tx>\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\w{2}\*\w\s\d{4}|\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\d+\w\s\d+)/gm, "tx");
+let ipran = RegExp.regexpsearch(texto = textarea, /(?<ipran>IP\sRAN\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipran");
+let ipnodeb = RegExp.regexpsearch(texto = textarea, /(?<ipnodeb>IP\sNODEB\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipnodeb");
+
 /*
 document.addEventListener('DOMContentLoaded', async () => {;
     let textarea = document.querySelector('.txtarea');
@@ -34,40 +35,35 @@ let smartplan = async () => {
     return await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8001/host', bodyObj);
 }
 
-//Pega dados e abre RAL
-let desigtx = RegExp.regexpsearch(texto = textarea, /(?<tx>\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\w{2}\*\w\s\d{4}|\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\d+\w\s\d+)/gm, "tx");
-let ipran = RegExp.regexpsearch(texto = textarea, /(?<ipran>IP\sRAN\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipran");
-let ipnodeb = RegExp.regexpsearch(texto = textarea, /(?<ipnodeb>IP\sNODEB\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipnodeb");
-
 let data = new Date();
+
 let datahora = `${data.toLocaleDateString()} - ${data.getHours()}:${data.getMinutes()}`;
 
-let designacao = document.querySelectorAll('.desig')
-    designacao.forEach(desig => {
-    desig.value = desigtx ?? ipran ?? ipnodeb;
-});
+let designacao = document.querySelectorAll('.desig').forEach(desig => desig.value = desigtx ?? ipran ?? ipnodeb);
 
 async function criarRal () {
-    let textarea = document.querySelector('.txtarea').value 
     let bodyObj = {
         site: 'SIR',
         url: 'http://sir.nt.embratel.com.br/',
         xpathTags: '//title',
-        tx: desigtx ?? "",
-        ipran: ipran ?? "",
-        nodeb: ipnodeb ?? "",
+        tx: desigtx ?? desigtxChange ?? "",
+        ipran: ipran ?? ipranChange ?? "",
+        nodeb: ipnodeb ?? ipnodebChange ?? "",
         textarea: textarea,
         datahora: datahora,
-        elementoA: elementoA,
-        intA: intA,
-        elementoB: elementoB,
-        intB: intB
+        elementoA: elementoA.textContent,
+        intA: intA.textContent,
+        elementoB: elementoB.textContent,
+        intB: intB.textContent
     }
+    
+    console.log(bodyObj)
     return await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8003/host', bodyObj);
 }
 
 
-let postMencached = async(data = {chave, "valor": {user, passw}, time}) => {
+let postMencached = async(data = {chave, "valor": {user, passw}, expiracao}) => {
+    console.log(data)
     let alertsMsg = document.querySelector('.alertsMsg');
     try {
         let gravar = await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8009/cache/gravar', data);
@@ -88,3 +84,4 @@ let postMencached = async(data = {chave, "valor": {user, passw}, time}) => {
         alertsMsg.textContent = "Erro de conexão com o servidor.";
     }
 }
+

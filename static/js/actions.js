@@ -13,9 +13,7 @@ let btn = document.querySelector('.copyall')
 
 //LOADING
 let sr_onlys = document.querySelector(".loading");
-let loadingStatus = () => {
-   sr_onlys.style.display === 'block' ? sr_onlys.style.display = 'none' : sr_onlys.style.display = 'block';
-}
+let loadingStatus = () => sr_onlys.style.display === 'block' ? sr_onlys.style.display = 'none' : sr_onlys.style.display = 'block';
 
 let alertaral = document.querySelector('.alertaral');
 //VARRER ENDEREÇO DO SMARTPLAN
@@ -27,22 +25,25 @@ document.querySelector('.smartplan').addEventListener('click', async (event) => 
     if (typeof(data) !== "string"){
         data.forEach(element => textarea.value += `${element}\n`);
         loadingStatus();
+        alertaral.style.display = "none";
     }else{
         alertaral.style.color = 'red';
         alertaral.textContent = data;    
-        loadingStatus();      
+        loadingStatus();
     }
 })
 
 //Loading e Resposta com Número da RAL
 document.querySelector('.btnpopup').addEventListener('click', async (event) => { //Botão
     event.preventDefault();
+    let textarea = document.querySelector('.txtarea');
     loadingStatus();
+    alertaral.style.display = "none";
     let ral = await criarRal();
     let regexp = /RAL\s\d+\/\d+/gm;
     let matchRal = ral.match(regexp)
     if(matchRal.length > -1) {
-        source.value += `BILHETE:${matchRal[0]}`;
+        textarea.value += `BILHETE:${matchRal[0]}`;
         alertaral.textContent = ral;
         loadingStatus();
     }else{
@@ -73,18 +74,52 @@ let postMecacheddataSir = document.querySelector("#form-sir").addEventListener('
     event.preventDefault();
     let user = event.target.elements['user'].value;
     let passw = event.target.elements['passw'].value;
-    let time = event.target.elements['session-time'].value;
+    let expiracao = event.target.elements['session-time'].value;
     let chave = event.target[3].dataset.sir
  
-    postMencached({chave, "valor": {user, passw}, "time": Number(time)});
+    postMencached({chave, "valor": {user, passw}, "expiracoa": Number(expiracao)});
 });
 
 let postMecacheddataSmartplan = document.querySelector("#form-smart").addEventListener('submit', async (event) => {
     event.preventDefault();
     let user = event.target.elements['user'].value;
     let passw = event.target.elements['passw'].value;
-    let time = event.target.elements['session-time'].value;
+    let expiracao = event.target.elements['session-time'].value;
     let chave = event.target[3].dataset.smartplan
  
-    postMencached({chave, "valor": {user, passw}, "time": Number(time)});
+    postMencached({chave, "valor": {user, passw}, "expiracoa": Number(expiracao)});
 });
+
+//PREENCHE DADOS QUANDO COPIADO NO TEXTAREA
+document.querySelector('.txtarea').addEventListener('input', async (event) => { 
+    //Pega dados e abre RAL
+    let desigtx = RegExp.regexpsearch(texto = event.data, /(?<tx>\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\w{2}\*\w\s\d{4}|\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\d+\w\s\d+)/gm, "tx");
+    let ipran = RegExp.regexpsearch(texto = event.data, /(?<ipran>IP\sRAN\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipran");
+    let ipnodeb = RegExp.regexpsearch(texto = event.data, /(?<ipnodeb>IP\sNODEB\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipnodeb");
+
+    let tx = event.data.search(/\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\w{2}\*\w\s\d{4}|\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\d+\w\s\d+/gm);
+    let pattern = /RMD|RMC|RMA|RMP/gm;
+    let trexoA = event.data.match(pattern) || [];
+    let ipan = trexoA.findIndex(itens => itens === 'RMC') || trexoA.findIndex(itens => itens === 'RMD');
+
+    if(tx !== -1) trechos.innerText = `TX`;
+    else if (ipan === 1) trechos.innerText = `IP RAN`;
+    else  trechos.innerText = `IP NODEB`;
+    
+    if(desigtx !== null)
+        desigtxChange = desigtx;
+    if(ipran !== null)
+        ipranChange = ipran;
+    if(ipnodeb !== null)
+        ipnodebChange = ipnodeb;
+    
+    desig.textContent = desigtx ?? ipran ?? ipnodeb;
+
+    let listRouter = event.data.match(/\w+\-\w+/gm);
+    elementoA.innerText = listRouter[0];
+    elementoB.innerText = listRouter[1];
+    let interfaces = event.data.match(/\b(?:[A-Z-]*\d+)?\/\d+[\/\w-]*\b/gm);
+    intA.innerText = interfaces[0];
+    intB.innerText = interfaces[1];
+    textarea = event.data;
+})
