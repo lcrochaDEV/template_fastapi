@@ -25,6 +25,7 @@ document.querySelector('.smartplan').addEventListener('click', async (event) => 
     if (typeof(data) !== "string"){
         data.forEach(element => textarea.value += `${element}\n`);
         loadingStatus();
+        alertaral.style.display = "none";
     }else{
         alertaral.style.color = 'red';
         alertaral.textContent = data;    
@@ -37,10 +38,10 @@ document.querySelector('.btnpopup').addEventListener('click', async (event) => {
     event.preventDefault();
     let textarea = document.querySelector('.txtarea');
     loadingStatus();
+    alertaral.style.display = "none";
     let ral = await criarRal();
     let regexp = /RAL\s\d+\/\d+/gm;
     let matchRal = ral.match(regexp)
-    console.log(matchRal)
     if(matchRal.length > -1) {
         textarea.value += `BILHETE:${matchRal[0]}`;
         alertaral.textContent = ral;
@@ -73,20 +74,20 @@ let postMecacheddataSir = document.querySelector("#form-sir").addEventListener('
     event.preventDefault();
     let user = event.target.elements['user'].value;
     let passw = event.target.elements['passw'].value;
-    let time = event.target.elements['session-time'].value;
+    let expiracao = event.target.elements['session-time'].value;
     let chave = event.target[3].dataset.sir
  
-    postMencached({chave, "valor": {user, passw}, "expiracao": Number(time)});
+    postMencached({chave, "valor": {user, passw}, "expiracoa": Number(expiracao)});
 });
 
 let postMecacheddataSmartplan = document.querySelector("#form-smart").addEventListener('submit', async (event) => {
     event.preventDefault();
     let user = event.target.elements['user'].value;
     let passw = event.target.elements['passw'].value;
-    let time = event.target.elements['session-time'].value;
+    let expiracao = event.target.elements['session-time'].value;
     let chave = event.target[3].dataset.smartplan
  
-    postMencached({chave, "valor": {user, passw}, "expiracao": Number(time)});
+    postMencached({chave, "valor": {user, passw}, "expiracoa": Number(expiracao)});
 });
 
 //PREENCHE DADOS QUANDO COPIADO NO TEXTAREA

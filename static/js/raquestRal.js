@@ -62,7 +62,7 @@ async function criarRal () {
 }
 
 
-let postMencached = async(data = {chave, "valor": {user, passw}, time}) => {
+let postMencached = async(data = {chave, "valor": {user, passw}, expiracao}) => {
     console.log(data)
     let alertsMsg = document.querySelector('.alertsMsg');
     try {
