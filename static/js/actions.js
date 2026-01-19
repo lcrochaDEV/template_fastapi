@@ -27,6 +27,7 @@ document.querySelector('.smartplan').addEventListener('click', async (event) => 
         loadingStatus();
         alertaral.style.display = "none";
     }else{
+        alertaral.style.display = "block";
         alertaral.style.color = 'red';
         alertaral.textContent = data;    
         loadingStatus();
@@ -45,11 +46,12 @@ document.querySelector('.btnpopup').addEventListener('click', async (event) => {
     if(matchRal.length > -1) {
         textarea.value += `BILHETE:${matchRal[0]}`;
         alertaral.style.display = "block";
+        alertaral.style.color = '#fff';
         alertaral.textContent = ral;
         loadingStatus();
     }else{
-        alertaral.style.color = 'red';
         alertaral.style.display = "block";
+        alertaral.style.color = 'red';
         alertaral.textContent = ral;    
         loadingStatus();
     }
