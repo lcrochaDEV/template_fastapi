@@ -23,7 +23,7 @@ document.querySelector('.smartplan').addEventListener('click', async (event) => 
     loadingStatus();
     let data = await smartplan();
     if (typeof(data) !== "string"){
-        data.forEach(element => textarea.value += `${element}\n`);
+        data.forEach(element => textarea.value += `\n${element}\n`);
         loadingStatus();
         alertaral.style.display = "none";
     }else{
@@ -44,10 +44,12 @@ document.querySelector('.btnpopup').addEventListener('click', async (event) => {
     let matchRal = ral.match(regexp)
     if(matchRal.length > -1) {
         textarea.value += `BILHETE:${matchRal[0]}`;
+        alertaral.style.display = "block";
         alertaral.textContent = ral;
         loadingStatus();
     }else{
         alertaral.style.color = 'red';
+        alertaral.style.display = "block";
         alertaral.textContent = ral;    
         loadingStatus();
     }
@@ -100,10 +102,10 @@ document.querySelector('.txtarea').addEventListener('input', async (event) => {
     let tx = event.data.search(/\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\w{2}\*\w\s\d{4}|\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\d+\w\s\d+/gm);
     let pattern = /RMD|RMC|RMA|RMP/gm;
     let trexoA = event.data.match(pattern) || [];
-    let ipan = trexoA.findIndex(itens => itens === 'RMC') || trexoA.findIndex(itens => itens === 'RMD');
+    let ipranTipe = trexoA.findIndex(itens => itens === 'RMC') || trexoA.findIndex(itens => itens === 'RMD');
 
     if(tx !== -1) trechos.innerText = `TX`;
-    else if (ipan === 1) trechos.innerText = `IP RAN`;
+    else if (ipranTipe === 1) trechos.innerText = `IP RAN`;
     else  trechos.innerText = `IP NODEB`;
     
     if(desigtx !== null)
