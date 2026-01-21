@@ -21,9 +21,10 @@ document.querySelector('.smartplan').addEventListener('click', async (event) => 
     event.preventDefault();
     let textarea = document.querySelector('.txtarea');
     loadingStatus();
+    alertaral.style.display = "none";
     let data = await smartplan();
     if (typeof(data) !== "string"){
-        data.forEach(element => textarea.value += `${element}\n`);
+        data.forEach(element => textarea.textContent += `${element}\n`);
         loadingStatus();
         alertaral.style.display = "none";
     }else{
@@ -43,7 +44,7 @@ document.querySelector('.btnpopup').addEventListener('click', async (event) => {
     let ral = await criarRal();
     let regexp = /RAL\s\d+\/\d+/gm;
     let matchRal = ral.match(regexp)
-    if(matchRal.length > -1) {
+    if(matchRal) {
         textarea.value += `BILHETE:${matchRal[0]}`;
         alertaral.style.display = "block";
         alertaral.style.color = '#fff';
