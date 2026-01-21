@@ -1,9 +1,11 @@
 //let textarea = document.querySelector('.txtarea').value;
 //Pega dados e abre RAL
-let desigtx = RegExp.regexpsearch(texto = textarea, /(?<tx>\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\w{2}\*\w\s\d{4}|\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\d+\w\s\d+)/gm, "tx");
+let desigtx = RegExp.regexpsearch(texto = textarea, /(?<tx>\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\w{2}\*\w\s\d{4}|(?<=DESIGNAÇÃO:\s)\w+\s+\w+\s+\w+\s\w+\s\w+\*\w\s\d+)/gm, "tx");
 let ipran = RegExp.regexpsearch(texto = textarea, /(?<ipran>IP\sRAN\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipran");
 let ipnodeb = RegExp.regexpsearch(texto = textarea, /(?<ipnodeb>IP\sNODEB\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipnodeb");
 
+
+// /(?<=DESIGNAÇÃO:\s)\w+\s+\w+\s+\w+\s\w+\s\w+\*\w\s\d+/gm
 /*
 document.addEventListener('DOMContentLoaded', async () => {;
     let textarea = document.querySelector('.txtarea');
