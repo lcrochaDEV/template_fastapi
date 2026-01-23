@@ -81,7 +81,7 @@ let postMecacheddataSir = document.querySelector("#form-sir").addEventListener('
     let passw = event.target.elements['passw'].value;
     let expiracao = event.target.elements['session-time'].value;
     let chave = event.target[3].dataset.sir
- 
+
     postMencached({chave, "valor": {user, passw}, "expiracao": Number(expiracao)});
 });
 
