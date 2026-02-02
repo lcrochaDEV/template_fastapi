@@ -42,6 +42,7 @@ let datahora = `${data.toLocaleDateString()} - ${data.getHours()}:${data.getMinu
 let designacao = document.querySelectorAll('.desig').forEach(desig => desig.value = desigtx ?? ipran ?? ipnodeb);
 
 async function criarRal () {
+    let textarea = document.querySelector('.txtarea').value 
     let bodyObj = {
         site: 'SIR',
         url: 'http://sir.nt.embratel.com.br/',
