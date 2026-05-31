@@ -77,6 +77,16 @@ dialog.addEventListener('click', (e) => {
 
 let postMecacheddataSir = document.querySelector("#form-sir").addEventListener('submit', async (event) => {
     event.preventDefault();
+    // 1. Validação casada antes de processar
+    const sessaoValida = await verificarSessaoValida();
+    let alertsMsg = document.querySelector('.alertsMsg');
+    
+    if (sessaoValida) {
+        alertsMsg.style.display = "block";
+        alertsMsg.style.color = "blue";
+        alertsMsg.textContent = "Você já possui uma sessão ativa válida no SIR!";
+        return; // Interrompe aqui para não regravar sem necessidade
+    }
     let user = event.target.elements['user'].value;
     let passw = event.target.elements['passw'].value;
     let expiracao = event.target.elements['session-time'].value;
@@ -87,6 +97,17 @@ let postMecacheddataSir = document.querySelector("#form-sir").addEventListener('
 
 let postMecacheddataSmartplan = document.querySelector("#form-smart").addEventListener('submit', async (event) => {
     event.preventDefault();
+    // 1. Validação casada antes de processar
+    const sessaoValida = await verificarSessaoValida();
+    let alertsMsg = document.querySelector('.alertsMsg');
+    
+    if (sessaoValida) {
+        alertsMsg.style.display = "block";
+        alertsMsg.style.color = "blue";
+        alertsMsg.textContent = "Você já possui uma sessão ativa válida no Smartplan!";
+        return; // Interrompe aqui para não regravar sem necessidade
+    }
+
     let user = event.target.elements['user'].value;
     let passw = event.target.elements['passw'].value;
     let expiracao = event.target.elements['session-time'].value;

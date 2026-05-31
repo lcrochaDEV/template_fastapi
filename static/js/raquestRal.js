@@ -64,7 +64,6 @@ async function criarRal () {
 
 
 let postMencached = async(data = {chave, "valor": {user, passw}, expiracao}) => {
-    console.log(data)
     let alertsMsg = document.querySelector('.alertsMsg');
     try {
         let gravar = await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8009/cache/gravar', data);
@@ -73,6 +72,11 @@ let postMencached = async(data = {chave, "valor": {user, passw}, expiracao}) => 
         if(gravar){
             alertsMsg.style.color = "green";
             alertsMsg.textContent = "Cadastrado com sucesso";
+
+            // Salvamos a chave e o usuário para validação posterior
+            const dadosSessao = { sessaoId: data.chave, usuario: data.valor.user };
+            CookieManager.set(`session_token_${data.chave}`, dadosSessao, data.expiracao); 
+
         }else{
             alertsMsg.style.color = "red";
             alertsMsg.textContent = "Usuario ou Senha Incorretos";
