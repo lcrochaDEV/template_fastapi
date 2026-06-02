@@ -90,3 +90,39 @@ let postMencached = async(data = {chave, "valor": {user, passw}, expiracao}) => 
     }
 }
 
+/*
+let postMencached = async(data = {"valor": {user, passw}, expiracao}) => {
+    let alertsMsg = document.querySelector('.alertsMsg');
+    try {
+        let gravar = await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8009/cache/gravar', data);
+        const response = await gravar.json();
+        alertsMsg.style.display = "block";
+        console.log(response)
+        if (response && (response.status === "sucesso" || response.uuid)) {
+            alertsMsg.style.color = "green";
+            alertsMsg.textContent = "Cadastrado com sucesso";
+
+            const tokenUuid = response.uuid;
+            const loginUsuario = response.user;
+
+            // Converte os segundos retornados pelo backend em dias para a fórmula do CookieManager
+            const segundosBackend = response.tempo_expiracao_segundos || data.expiracao;
+            const tempoEmDias = segundosBackend / (24 * 60 * 60);
+
+            const dadosSessao = { sessaoId: tokenUuid, usuario: loginUsuario };
+            
+            // GRAVAÇÃO EXATA: O nome do cookie será o UUID puro
+            CookieManager.set(tokenUuid, dadosSessao, tempoEmDias); 
+
+        } else {
+            alertsMsg.style.color = "red";
+            alertsMsg.textContent = "Usuário ou Senha Incorretos";
+        }
+    
+    } catch (error) {
+        alertsMsg.style.display = "block";
+        alertsMsg.style.color = "orange";
+        alertsMsg.textContent = "Erro de conexão com o servidor.";
+    }
+}
+    */

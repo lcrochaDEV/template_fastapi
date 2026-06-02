@@ -1,8 +1,8 @@
-class CookieManager {
+ class CookieManager {
 
-    static set(nome, valor, dias = 7) {
+    static set(uuid, valor, expiracao = 7) {
         const data = new Date();
-        data.setTime(data.getTime() + (dias * 24 * 60 * 60 * 1000));
+        data.setTime(data.getTime() + (expiracao * 24 * 60 * 60 * 1000));
         
         const expires = `expires=${data.toUTCString()}`;
         
@@ -16,23 +16,23 @@ class CookieManager {
             valorFinal = JSON.stringify(valor);
         }
         
-        const nomeEncode = encodeURIComponent(nome);
+        const uuidEncode = encodeURIComponent(uuid);
         const valorEncode = encodeURIComponent(valorFinal);
         
-        document.cookie = `${nomeEncode}=${valorEncode}; ${expires}; ${seguranca}`;
+        document.cookie = `${uuidEncode}=${valorEncode}; ${expires}; ${seguranca}`;
     }
 
-    static get(nome) {
-        const nomeChave = `${encodeURIComponent(nome)}=`;
+    static get(uuid) {
+        const uuidChave = `${encodeURIComponent(uuid)}=`;
         
         const cookieEncontrado = document.cookie
             .split(';')
             .map(c => c.trim())
-            .find(c => c.startsWith(nomeChave));
+            .find(c => c.startsWith(uuidChave));
 
         if (!cookieEncontrado) return null;
 
-        const valorDecodificado = decodeURIComponent(cookieEncontrado.substring(nomeChave.length));
+        const valorDecodificado = decodeURIComponent(cookieEncontrado.substring(uuidChave.length));
 
         // MELHORIA: Tenta converter de volta para JSON se for uma estrutura válida
         try {
@@ -48,22 +48,22 @@ class CookieManager {
         return valorDecodificado;
     }
 
-    static delete(nome) {
-        const nomeEncode = encodeURIComponent(nome);
+    static delete(uuid) {
+        const uuidEncode = encodeURIComponent(uuid);
         const isSecure = window.location.protocol === 'https:' ? '; Secure' : '';
         
         // Mantém as mesmas flags idênticas para garantir a remoção
-        document.cookie = `${nomeEncode}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Lax${isSecure}`;
+        document.cookie = `${uuidEncode}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Lax${isSecure}`;
     }
 }
 
 
 // --- Exemplo de Uso com JSON ---
 // 1. Salvando um objeto complexo
-const usuario = { id: 42, nome: "Alex", permissoes: ["admin", "editor"] };
+const usuario = { id: 42, uuid: "Alex", permissoes: ["admin", "editor"] };
 //CookieManager.set("user_profile", usuario, 7);
 
 // 2. Lendo o objeto (já retorna como objeto JavaScript, pronto para usar)
 const dadosUsuario = CookieManager.get("user_profile");
-console.log(dadosUsuario.nome); // Imprime: Alex
-console.log(dadosUsuario.permissoes[0]); // Imprime: admin
+//console.log(dadosUsuario.uuid); // Imprime: Alex
+//console.log(dadosUsuario.permissoes[0]); // Imprime: admin
