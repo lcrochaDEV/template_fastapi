@@ -90,7 +90,7 @@ let postMecacheddataSir = document.querySelector("#form-sir").addEventListener('
     let user = event.target.elements['user'].value;
     let passw = event.target.elements['passw'].value;
     let expiracao = event.target.elements['session-time'].value;
-    let chave = event.target[3].dataset.sir; //event.target[3].dataset.sir
+    let chave = event.target[3].dataset.sir;
 
     postMencached({chave, "valor": {user, passw}, "expiracao": Number(expiracao)});
 });
@@ -111,7 +111,7 @@ let postMecacheddataSmartplan = document.querySelector("#form-smart").addEventLi
     let user = event.target.elements['user'].value;
     let passw = event.target.elements['passw'].value;
     let expiracao = event.target.elements['session-time'].value;
-    let chave = event.target[3].dataset.smartplan; //event.target[3].dataset.smartplan
+    let chave = event.target[3].dataset.smartplan;
  
     postMencached({chave, "valor": {user, passw}, "expiracao": Number(expiracao)});
 });

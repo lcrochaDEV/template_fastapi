@@ -1,23 +1,34 @@
 class ConnectJson {
-    static _myHeaders() {
-        return new Headers({
+    // 1. Atualizado para receber o token (opcional)
+    static _myHeaders(token = null) {
+        const headersObj = {
             'Content-Type': 'application/json',
-        });
+        };
+
+        // Se o token existir, adiciona o Bearer aos headers
+        if (token) {
+            headersObj['Authorization'] = `Bearer ${token}`;
+        }
+
+        return new Headers(headersObj);
     }
     
-    static _optionsOBJ(cacheData){
+    // 2. Atualizado para receber o token e repassar adiante
+    static _optionsOBJ(cacheData, token = null){
         return {
             method: "POST",
             body: JSON.stringify(cacheData),
-            headers: this._myHeaders(),
+            headers: this._myHeaders(token), // Passa o token aqui
             mode: "cors",
             cache: "default",
         };
     }
 
-    static async connectJsonUrlJson(URL, cacheData = null){
+    // 3. Adicionado o parâmetro 'token' no método principal
+    static async connectJsonUrlJson(URL, cacheData = null, token = null){
        
-        let options = cacheData !== null ? this._optionsOBJ(cacheData) : null //POST <-> GET
+        // Passa o token para o criador de options
+        let options = cacheData !== null ? this._optionsOBJ(cacheData, token) : null 
        
         try{
             const conexao = await fetch(URL, options)
@@ -28,12 +39,14 @@ class ConnectJson {
                 return conexao;
             }
         }catch(error){
-            console.log('Falha no link!')
+            console.log('Falha no link!', error)
         }
     }
-    static async connectJsonUrlText(URL, cacheData = null){
+
+    // 4. Adicionado o parâmetro 'token' também na versão Text
+    static async connectJsonUrlText(URL, cacheData = null, token = null){
        
-        let options = cacheData !== null ? this._optionsOBJ(cacheData) : null //POST <-> GET
+        let options = cacheData !== null ? this._optionsOBJ(cacheData, token) : null 
        
         try{
             const conexao = await fetch(URL, options)
@@ -44,7 +57,7 @@ class ConnectJson {
                 return conexao;
             }
         }catch(error){
-            console.log('Falha no link!')
+            console.log('Falha no link!', error)
         }
     }
 }

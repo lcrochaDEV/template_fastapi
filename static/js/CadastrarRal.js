@@ -5,18 +5,18 @@ class CadastrarRal {
         });
     }
     
-    static _optionsOBJ(objdata){
+    static _optionsOBJ(payload){
         return {
             method: "POST",
-            body: JSON.stringify(objdata),
+            body: JSON.stringify(payload),
             headers: this._myHeaders(),
             mode: "cors",
             cache: "default",
         };
     }
 
-    static async connectJsonUrlJson(URL, objdata){     
-        let options = objdata !== null ? this._optionsOBJ(objdata) : null //POST <-> GET
+    static async connectJsonUrlJson(URL, payload ){     
+        let options = payload !== null ? this._optionsOBJ(payload) : null //POST <-> GET
         try{
             const conexao = await fetch(URL, options)
             if(conexao.status === 200){

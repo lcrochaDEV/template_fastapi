@@ -22,6 +22,18 @@ document.addEventListener('DOMContentLoaded', async () => {;
 
 //Busca de endereços no SMARTPLAN
 let smartplan = async () => {
+        // 1. Recupera o objeto do cookie
+    const dadosSessao = CookieManager.get("session_token_smartplan");
+
+    // 2. Valida se o cookie existe e se tem o ID da sessão
+    if (!dadosSessao || !dadosSessao.sessaoId) {
+        console.error("Necessário fazer login (Token não encontrado no cookie)");
+        return;
+    }
+
+    // Extrai o UUID puro do objeto
+    const uuidPuro = dadosSessao.sessaoId; 
+
     let textarea = document.querySelector('.txtarea').value 
     let patternDesig = /\w{6}?\w?\d?\-\w{3}\d{2}|\w{5}?\w?\d\-\w{3}\d{2}/gm;
     let desigCaixa = textarea.match(patternDesig) || [];
@@ -29,21 +41,38 @@ let smartplan = async () => {
     let desigCaixaList = [... desigCaixa];
     const removeDupicados = [... new Set(desigCaixaList.map(itens => itens.substring(0, 7)))]; //RETIRA OS DUPLICADOS
 
-    let bodyObj = {
+    let payload = {
         endList: removeDupicados
-    }
-    return await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8001/host', bodyObj);
+    };
+    // 1. Corrigido para ConnectJson (ou o nome real da sua classe)
+    let data = await ConnectJson.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8001/host', payload, uuidPuro);
+    
+    // 2. Validação para evitar erro de "undefined" caso o fetch falhe ou retorne o JSON direto
+    if (data && data.status) return data.status;
+    
+    return data; // Retorna o objeto JSON completo caso ele não tenha a propriedade .status
 }
 
 let data = new Date();
-
 let datahora = `${data.toLocaleDateString()} - ${data.getHours()}:${data.getMinutes()}`;
-
 let designacao = document.querySelectorAll('.desig').forEach(desig => desig.value = desigtx ?? ipran ?? ipnodeb);
-
+/*
 async function criarRal () {
-    let textarea = document.querySelector('.txtarea').value 
-    let bodyObj = {
+    // 1. Recupera o objeto do cookie
+    const dadosSessao = CookieManager.get("session_token_sirRobot");
+
+    // 2. Valida se o cookie existe e se tem o ID da sessão
+    if (!dadosSessao || !dadosSessao.sessaoId) {
+        console.error("Necessário fazer login (Token não encontrado no cookie)");
+        return;
+    }
+
+    // Extrai o UUID puro do objeto
+    const uuidPuro = dadosSessao.sessaoId; 
+    console.log(uuidPuro)
+
+    let textarea = document.querySelector('.txtarea').value;
+    let payload = {
         site: 'SIR',
         url: 'http://sir.nt.embratel.com.br/',
         xpathTags: '//title',
@@ -57,41 +86,66 @@ async function criarRal () {
         elementoB: elementoB.textContent,
         intB: intB.textContent
     }
-    
-    console.log(bodyObj)
-    return await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8003/host', bodyObj);
-}
+    let data = await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8003/host', payload, uuidPuro);
+    return data.status;
+    /*try {
 
+        const resposta = await fetch('http://clr0an001372366.nt.embratel.com.br:8003/host', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${uuidPuro}` // Envia: Bearer c4e66ff5-931c-...
+            },
+            body: JSON.stringify(payload)
+        });
+        
+        return await resposta.json();
+    } catch (error) {
+        console.error("Erro na comunicação com o servidor Sir:", error);
+        return { error: "Erro de conexão com o servidor." };
+    }
+}*/
+async function criarRal () {
+    // 1. Recupera o objeto do cookie
+    const dadosSessao = CookieManager.get("session_token_sirRobot");
+
+    // 2. Valida se o cookie existe e se tem o ID da sessão
+    if (!dadosSessao || !dadosSessao.sessaoId) {
+        console.error("Necessário fazer login (Token não encontrado no cookie)");
+        return;
+    }
+
+    // Extrai o UUID puro do objeto
+    const uuidPuro = dadosSessao.sessaoId; 
+    console.log(uuidPuro);
+
+    let textarea = document.querySelector('.txtarea').value;
+    let payload = {
+        site: 'SIR',
+        url: 'http://sir.nt.embratel.com.br/',
+        xpathTags: '//title',
+        tx: desigtx ?? desigtxChange ?? "",
+        ipran: ipran ?? ipranChange ?? "",
+        nodeb: ipnodeb ?? ipnodebChange ?? "",
+        textarea: textarea,
+        datahora: datahora,
+        elementoA: elementoA.textContent,
+        intA: intA.textContent,
+        elementoB: elementoB.textContent,
+        intB: intB.textContent
+    };
+
+    // 1. Corrigido para ConnectJson (ou o nome real da sua classe)
+    let data = await ConnectJson.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8003/host', payload, uuidPuro);
+    
+    // 2. Validação para evitar erro de "undefined" caso o fetch falhe ou retorne o JSON direto
+    if (data && data.status) return data.status;
+    
+    return data; // Retorna o objeto JSON completo caso ele não tenha a propriedade .status
+}
 
 let postMencached = async(data = {chave, "valor": {user, passw}, expiracao}) => {
-    let alertsMsg = document.querySelector('.alertsMsg');
-    try {
-        let gravar = await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8009/cache/gravar', data);
-        alertsMsg.style.display = "block";
-        
-        if(gravar){
-            alertsMsg.style.color = "green";
-            alertsMsg.textContent = "Cadastrado com sucesso";
 
-            // Salvamos a chave e o usuário para validação posterior
-            const dadosSessao = { sessaoId: data.chave, usuario: data.valor.user };
-            CookieManager.set(`session_token_${data.chave}`, dadosSessao, data.expiracao); 
-
-        }else{
-            alertsMsg.style.color = "red";
-            alertsMsg.textContent = "Usuario ou Senha Incorretos";
-        }
-    
-    } catch (error) {
-        // Tratamento para falhas de rede ou servidor offline
-        alertsMsg.style.display = "block";
-        alertsMsg.style.color = "orange";
-        alertsMsg.textContent = "Erro de conexão com o servidor.";
-    }
-}
-
-/*
-let postMencached = async(data = {"valor": {user, passw}, expiracao}) => {
     let alertsMsg = document.querySelector('.alertsMsg');
     try {
         let gravar = await CadastrarRal.connectJsonUrlJson('http://clr0an001372366.nt.embratel.com.br:8009/cache/gravar', data);
@@ -112,7 +166,8 @@ let postMencached = async(data = {"valor": {user, passw}, expiracao}) => {
             const dadosSessao = { sessaoId: tokenUuid, usuario: loginUsuario };
             
             // GRAVAÇÃO EXATA: O nome do cookie será o UUID puro
-            CookieManager.set(tokenUuid, dadosSessao, tempoEmDias); 
+            CookieManager.set(`session_token_${data.chave}`, dadosSessao, tempoEmDias);
+      
 
         } else {
             alertsMsg.style.color = "red";
@@ -125,4 +180,4 @@ let postMencached = async(data = {"valor": {user, passw}, expiracao}) => {
         alertsMsg.textContent = "Erro de conexão com o servidor.";
     }
 }
-    */
+    
