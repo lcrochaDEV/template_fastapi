@@ -149,3 +149,4 @@ document.querySelector('.txtarea').addEventListener('input', async (event) => {
     intB.innerText = interfaces[1];
     textarea = event.data;
 })
+
