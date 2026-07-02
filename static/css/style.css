@@ -297,3 +297,69 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); }
     color: #ffffff;
     font-weight: bold;
 }
+
+/*FORMULARIO DE INC*/
+/* Container do bloco */
+.input-group {
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+
+/* Rótulo / Texto acima do campo */
+.input-group label {
+  display: block;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Alinhamento do Input ao lado do Botão (Sem esticar na tela toda) */
+.input-inline {
+  display: flex;
+  justify-content: flex-start; /* Garante que o bloco fique alinhado à esquerda */
+  gap: 12px;
+}
+
+/* Campo de Texto (Input) com tamanho ideal para o INC */
+#input-inc {
+  width: 100%;
+  max-width: 220px; /* Tamanho perfeito para exibir o INC confortavelmente */
+  padding: 12px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #334155;
+  background-color: #f8fafc;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.2s ease;
+}
+
+/* Efeito de clique/foco no Input */
+#input-inc:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Botão Consultar */
+#btn-gerar {
+  padding: 12px 24px;
+  background-color: #3b82f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: background-color 0.2s ease;
+}
+
+/* Efeito de passar o mouse no Botão */
+#btn-gerar:hover {
+  background-color: #2563eb;
+}
+

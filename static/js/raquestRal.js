@@ -1,8 +1,8 @@
 //let textarea = document.querySelector('.txtarea').value;
 //Pega dados e abre RAL
-let desigtx = RegExp.regexpsearch(texto = textarea, /(?<tx>\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\w{2}\*\w\s\d{4}|(?<=DESIGNAÇÃO:\s)\w+\s+\w+\s+\w+\s\w+\s\w+\*\w\s\d+)/gm, "tx");
-let ipran = RegExp.regexpsearch(texto = textarea, /(?<ipran>IP\sRAN\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipran");
-let ipnodeb = RegExp.regexpsearch(texto = textarea, /(?<ipnodeb>IP\sNODEB\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipnodeb");
+let desigtx = RegExpUtils.regexpsearch(texto = textarea, /(?<tx>\w{1,}\s\w{1,}\s\w{1,}\s\w{1,}\s\w{2}\*\w\s\d{4}|(?<=DESIGNAÇÃO:\s)\w+\s+\w+\s+\w+\s\w+\s\w+\*\w\s\d+)/gm, "tx");
+let ipran = RegExpUtils.regexpsearch(texto = textarea, /(?<ipran>IP\sRAN\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipran");
+let ipnodeb = RegExpUtils.regexpsearch(texto = textarea, /(?<ipnodeb>IP\sNODEB\/\w{2}\s\w+\/\w{2}\s\w+)/gm, "ipnodeb");
 
 /*
 document.addEventListener('DOMContentLoaded', async () => {;
@@ -181,3 +181,35 @@ let postMencached = async(data = {chave, "valor": {user, passw}, expiracao}) => 
     }
 }
     
+const requestData = async (inc) => { 
+  try {
+    const response = await fetch(`http://127.0.0.1:5000/api/grb/inc?inc=${inc}`);
+    
+    // 1. Verifica se o servidor respondeu com sucesso (status entre 200 e 299)
+    if (!response.ok) {
+      throw new Error(`Erro no servidor Flask: Status ${response.status}`);
+    }
+
+    const jsonData = await response.json();
+    
+    // 2. Garante que o JSON recebido é de fato uma lista antes de processar
+    if (!Array.isArray(jsonData)) {
+      throw new TypeError("A API não retornou uma lista válida de dados.");
+    }
+
+    // Gera o texto passando o JSON e o número do INC
+    const resultado = gerarTextoFrontEnd(jsonData, inc);
+    
+    console.log(resultado); 
+    return resultado;
+
+  } catch (error) {
+    console.error("Erro na requisição:", error.message);
+    // Aqui você pode disparar um alerta visual para o usuário final saber que falhou
+    alertaral.style.display = "block";
+    alertaral.style.color = 'red';
+    alertaral.textContent = `Não foi possível buscar os dados do ${inc}. Verifique o servidor local.`;
+    loadingStatus(false);
+    return '';
+  }
+};

@@ -18,6 +18,14 @@
                         <form action="/submit_form" method="post" class="smartplanForm">
                               <label for="msg" class="msg">Dados para abertura de RAL</label>
                               <textarea class="txtarea" value="" rows="14" cols="70">{{textarea}}</textarea>
+                              <div class="campotexto">
+                              <div class="input-group">
+                                    <label for="input-inc">Número do Chamado</label>
+                                    <div class="input-inline">
+                                          <input type="text" id="input-inc" class="inc" placeholder="Ex: INC000005466178" autocomplete="off">
+                                          <button id="btn-gerar" class="btn_inc">Consultar</button>
+                                    </div>
+                              </div>
                               <div class="btns">
                                     <input type="submit" value="RAL" class="btnpopup">
                                     <input type="submit" value="" class="smartplan">

@@ -1,4 +1,4 @@
-class RegExp {
+class RegExpUtils {
     static regexpsearch(texto = null, pattern = null, groupsRegexp = null){
         if (!texto) return null; 
         let capturatxt = [... texto.matchAll(pattern)];
@@ -12,4 +12,4 @@ class RegExp {
         return null
     }
 }
-//EXEMPLOS: RegExp.regexpsearch(texto = texto, /PROBLEMA:\s?(?<falha>\w+\s\w+)/gm, "falha")
+//EXEMPLOS: RegExpUtils.regexpsearch(texto = texto, /PROBLEMA:\s?(?<falha>\w+\s\w+)/gm, "falha")
