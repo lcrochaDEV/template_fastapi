@@ -290,7 +290,7 @@ function gerarTextoFrontEnd(responsedata, numeroChamado) {
     }
   });
   
-  linhas.push("ENDEREÇOS:");
+  linhas.push("ENDEREÇOS:\n");
   return linhas.join('\n');
 }
 

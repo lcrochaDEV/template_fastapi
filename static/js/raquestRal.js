@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {;
 
 //Busca de endereços no SMARTPLAN
 let smartplan = async () => {
-        // 1. Recupera o objeto do cookie
+    // 1. Recupera o objeto do cookie
     const dadosSessao = CookieManager.get("session_token_smartplan");
 
     // 2. Valida se o cookie existe e se tem o ID da sessão
@@ -180,10 +180,84 @@ let postMencached = async(data = {chave, "valor": {user, passw}, expiracao}) => 
         alertsMsg.textContent = "Erro de conexão com o servidor.";
     }
 }
+
+const requestData = async (inc) => { 
+  try {
+    // 1. Recupera o objeto do cookie corporativo
+    const dadosSessao = CookieManager.get("session_token_smartplan");
+
+    // 2. Valida se o cookie existe e se possui o ID da sessão ativa
+    if (!dadosSessao || !dadosSessao.sessaoId) {
+        console.error("Necessário fazer login (Token não encontrado no cookie)");
+        
+        alertaral.style.display = "block";
+        alertaral.style.color = 'orange';
+        alertaral.textContent = "Sua sessão expirou. Por favor, faça login novamente.";
+        loadingStatus(false);
+        return '';
+    }
+
+    // 3. Extrai o UUID puro que será enviado no cabeçalho HTTP
+    const uuidPuro = dadosSessao.sessaoId; 
+
+    // 4. Executa o fetch enviando o cabeçalho Authorization exigido pelo FastAPI
+    const response = await fetch(`http://clr0an001372366.nt.embratel.com.br:8010/api/grb/inc?inc=${inc}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${uuidPuro}`
+        }
+    });
     
+    // 5. Verifica se o servidor respondeu com códigos de erro (4xx ou 5xx)
+    if (!response.ok) {
+      if (response.status === 401) {
+         throw new Error("Sessão inválida ou expirada no servidor Helix.");
+      }
+      throw new Error(`Erro no servidor FastAPI: Status ${response.status}`);
+    }
+
+    const jsonData = await response.json();
+    
+    // CORREÇÃO: Converte para string ou trata como objeto para garantir a captura exata da mensagem
+    const respostaTexto = typeof jsonData === 'string' ? jsonData : JSON.stringify(jsonData);
+
+    if (respostaTexto.includes("Não foi encontrado INC.")) {
+        alertaral.style.display = "block";
+        alertaral.style.color = 'orange';
+        alertaral.textContent = `Não foi encontrado dados para o ${inc} no sistema GRB.`;
+        loadingStatus(false);
+        return '';
+    }
+    
+    // 6. Garante que o JSON recebido é de fato uma lista antes de processar as colunas
+    if (!Array.isArray(jsonData)) {
+      throw new TypeError("A API não retornou uma lista válida de dados.");
+    }
+
+    // Gera o texto passando o JSON e o número do INC
+    const resultado = gerarTextoFrontEnd(jsonData, inc);
+    
+    console.log(resultado); 
+    return resultado;
+
+  } catch (error) {
+    console.error("Erro na requisição:", error.message);
+    
+    alertaral.style.display = "block";
+    alertaral.style.color = 'red'; // Cor vermelha para erros críticos de código/infraestrutura
+    alertaral.textContent = `Não foi possível buscar os dados do ${inc}. Detalhe: ${error.message}`;
+    loadingStatus(false);
+    return '';
+  }
+};
+
+
+/*
 const requestData = async (inc) => { 
   try {
     const response = await fetch(`http://127.0.0.1:5000/api/grb/inc?inc=${inc}`);
+    //const response = await fetch(`http://clr0an001372366.nt.embratel.com.br:8010/api/grb/inc?inc=${inc}`);
     
     // 1. Verifica se o servidor respondeu com sucesso (status entre 200 e 299)
     if (!response.ok) {
@@ -213,3 +287,4 @@ const requestData = async (inc) => {
     return '';
   }
 };
+*/
